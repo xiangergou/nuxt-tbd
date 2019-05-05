@@ -1,6 +1,6 @@
 # tbd
 
-> My bee&#39;s knees Nuxt.js project
+> My super Nuxt.js project
 
 ## Build Setup
 

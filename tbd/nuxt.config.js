@@ -28,28 +28,28 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    'element-ui/lib/theme-chalk/index.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~plugins/bootstrap.js', ssr: true },
+    '@/plugins/element-ui'
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
   ],
 
   /*
   ** Build configuration
   */
   build: {
-    vendor: ['bootstrap'],
+    transpile: [/^element-ui/],
+    
     /*
     ** You can extend webpack config here
     */
