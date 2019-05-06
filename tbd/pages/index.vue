@@ -1,18 +1,37 @@
 <template>
   <div class="home_container">
     <section class="home__banner">
+      <article class="home__banner-content">
+        <el-card class="box-card">
+          <el-row :gutter="20">
+            <el-col :span="3">榜单</el-col>
+            <el-col :span="16" :offset="5">
+              淘榜单 第 62 期   累计发布 1631 个榜单
+            </el-col>
+          </el-row>
+          <el-row :gutter="10">
+            <el-col :span="6">榜单</el-col>
+            <el-col :span="6">榜单</el-col>
+            <el-col :span="6">榜单</el-col>
+            <el-col :span="6">榜单</el-col>
+          </el-row>
+        </el-card>
+        <el-card class="box-card" style="margin-top:10px;">
+          <h4>文章</h4>
+        </el-card>
+      </article>
       <el-carousel :interval="5000" arrow="always">
         <el-carousel-item v-for="item in 4" :key="item">
-          <h3>{{ item }}</h3>
+          <img src="https://txws-tbd.oss-cn-qingdao.aliyuncs.com/image/20190128/20190128_5d2719cf195f40b1b2359a7ad0ef0767.png" alt="">
         </el-carousel-item> 
       </el-carousel>
     </section>
+    <!-- 最新排行 -->
     <section class="home__article-ranking">
       <el-row type="flex" class="row-bg" justify="space-around" :gutter="10">
         <el-col  style="width:410px;">
           <div class="ranking_title">
             <h2>最新排行</h2>
-            <span>更多</span>
           </div>
           <el-card class="box-card">
             <div v-for="o in 4" :key="o" class="text item">
@@ -22,8 +41,7 @@
         </el-col>
         <el-col  style="width:410px;">
           <div class="ranking_title">
-            <h2>最新排行</h2>
-            <span>更多</span>
+            <span style="display:inline-block;margin-top:9px;">更多</span>
           </div>
           <el-card class="box-card">
             <div v-for="o in 4" :key="o" class="text item">
@@ -148,26 +166,28 @@ export default {
 .home_container{
   overflow: auto;
   .home__banner{
+    position: relative;
     overflow: auto;
     .el-carousel {
       .el-carousel__container{
         height: 380px !important;
       }
     }
-    .el-carousel__item h3 {
-      color: #475669;
-      font-size: 18px;
-      opacity: 0.75;
-      line-height: 380px;
-      margin: 0;
-    }
-    
-    .el-carousel__item:nth-child(2n) {
-      background-color: #99a9bf;
-    }
-    
-    .el-carousel__item:nth-child(2n+1) {
-      background-color: #d3dce6;
+    .home__banner-content{
+      position: absolute;
+      width: 484px;
+      height: 306px;
+      top: 35px;
+      left: 50%;
+      z-index: 9;
+      transform: translateX(-590px);
+      box-sizing: border-box;
+      .box-card{
+        background: rgba(0,0,0,.5);
+        border-radius: 4px;
+        color: #fff;
+        border: none;
+      }
     }
   }
  .home__article-ranking{
@@ -189,15 +209,18 @@ export default {
       padding: 18px 0;
     }
     .ranking_title{
+      margin: 30px 0;
       box-sizing: border-box;
       overflow: auto;
       h2{
-        float: left;
-        // display: inline-block;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 24px;
+        display: inline-block;
+        color: #333;
+        letter-spacing: 1px;
       }
       span{
         float: right;
-        margin-top: 25px;
       }
     }
   }
