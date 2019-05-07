@@ -28,25 +28,61 @@
     </section>
     <!-- 最新排行 -->
     <section class="home__article-ranking">
-      <el-row type="flex" class="row-bg"  justify="space-between">
+      <el-row type="flex" class="row-bg" justify="space-between">
         <el-col :span="18" style="margin-right:20px">
             <div class="ranking_title">
               <h2>最新排行</h2>
               <span>更多</span>
             </div>
-           <el-row type="flex" class="row-bg"  justify="space-between">
+           <el-row type="flex" class="row-bg" justify="space-between">
               <el-col :span="12" style="margin-right:20px">
                 <el-card class="box-card">
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
+                  <div class="ranking_title card-title">
+                    <strong>主播综合榜 ></strong>
+                    <span>2019.4.15-2019.4.21</span>
                   </div>
+                  <el-row justify="space-between" class="card-table__title">
+                    <el-col :span="6">排名</el-col>
+                    <el-col :span="8">昵称</el-col>
+                    <el-col :span="10" style="text-align:right">淘指数</el-col>
+                  </el-row>
+                  <el-row justify="space-between" class="card-table__body">
+                    <el-col :span="3">1</el-col>
+                    <el-col :span="3">昵称</el-col>
+                    <el-col :span="3" >昵称</el-col>
+                    <el-col :span="15" style="text-align:right">淘指数</el-col>
+                  </el-row> 
+                  <el-row justify="space-between" class="card-table__body">
+                    <el-col :span="3">1</el-col>
+                    <el-col :span="3">昵称</el-col>
+                    <el-col :span="3" >昵称</el-col>
+                    <el-col :span="15" style="text-align:right">淘指数</el-col>
+                  </el-row> 
                 </el-card>
              </el-col>
              <el-col :span="12">
                <el-card class="box-card">
-                  <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
+                 <div class="ranking_title card-title">
+                    <strong>短视频排行榜 ></strong>
+                    <span>2019.4.15-2019.4.21</span>
                   </div>
+                  <el-row justify="space-between" class="card-table__title">
+                    <el-col :span="6">排名</el-col>
+                    <el-col :span="8">昵称</el-col>
+                    <el-col :span="10" style="text-align:right">淘指数</el-col>
+                  </el-row>
+                  <el-row justify="space-between" class="card-table__body">
+                    <el-col :span="3">1</el-col>
+                    <el-col :span="3">昵称</el-col>
+                    <el-col :span="3" >昵称</el-col>
+                    <el-col :span="15" style="text-align:right">淘指数</el-col>
+                  </el-row> 
+                  <el-row justify="space-between" class="card-table__body">
+                    <el-col :span="3">1</el-col>
+                    <el-col :span="3">昵称</el-col>
+                    <el-col :span="3" >昵称</el-col>
+                    <el-col :span="15" style="text-align:right">淘指数</el-col>
+                  </el-row> 
                 </el-card>
              </el-col>
            </el-row>
@@ -56,31 +92,54 @@
             <h2>最新排行</h2>
             <span>更多</span>
           </div>
-          <el-card class="box-card">
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
-            </div>
+          <el-card class="box-card card-news">
+             <el-timeline :reverse="reverse">
+              <el-timeline-item
+                v-for="(activity, index) in activities"
+                :key="index"
+                :timestamp="activity.timestamp">
+                {{activity.content}}
+              </el-timeline-item>
+            </el-timeline>
           </el-card>
         </el-col>
       </el-row>
     </section>
     <!-- 内容电商 -->
     <section  class="home__article-content">
-
-      <el-row :gutter="20">
-        <el-col :span="17">
+      <el-row justify="space-between" type="flex">
+        <el-col :span="17" style="margin-right:20px;">
           <div class="ranking_title">
             <h2>最新排行</h2>
             <span>更多</span>
           </div>
-          <el-card :body-style="{ padding: '18px' }">
-            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-            <div style="padding: 14px;display:inline-block;">
-              <span>好吃的汉堡</span>
-              <div class="clearfix">
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
+          <el-card :body-style="{ height: '420px' }">
+            <el-row>
+              <el-col :span="10">
+                <div class="content-img">
+                  <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                  <span>直播不卖货？5个技巧帮你解决！</span>
+                </div>
+              </el-col>
+              <el-col :span="14">
+                <div style="border-bottom:1px solid #ccc;">
+                  <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
+                  <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
+                  <el-row>
+                    <el-col :span="6">dsadsadsa</el-col>
+                    <el-col :span="6">dsadsadsa</el-col>
+                  </el-row>
+                </div>
+                <div style="border-bottom:1px solid #ccc;">
+                  <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
+                  <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
+                  <el-row>
+                    <el-col :span="6">dsadsadsa</el-col>
+                    <el-col :span="6">dsadsadsa</el-col>
+                  </el-row>
+                </div>
+              </el-col>
+            </el-row>
           </el-card>
         </el-col>
         <el-col :span="7">
@@ -88,10 +147,12 @@
               <h2>最新排行</h2>
               <span>更多</span>
             </div>
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+          <el-card :body-style="{ padding: '0px', height: '420px'  }">
+            <div class="content-img">
+              <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+              <span>直播不卖货？5个技巧帮你解决！</span>
+            </div>
             <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
               <div class="bottom clearfix">
                 <el-button type="text" class="button">操作按钮</el-button>
               </div>
@@ -159,12 +220,22 @@
 <script>
 import { homeApi } from '~/api/home.js';
 export default {
-  
   components: {
   },
   data() {
     return {
-      banners: []
+      banners: [],
+      reverse: true,
+      activities: [{
+        content: '活动按期开始',
+        timestamp: '2018-04-15'
+      }, {
+        content: '通过审核',
+        timestamp: '2018-04-13'
+      }, {
+        content: '创建成功',
+        timestamp: '2018-04-11'
+      }]
     }
   },
   methods: {
@@ -218,28 +289,70 @@ export default {
     .box-card {
       width: 100%;
       box-sizing: border-box;
+      height: 476px;
+      overflow: auto;
+      .card-title{
+        height: 40px;
+        line-height: 40px;
+        margin: 0;
+        width: 100%;
+        strong{
+          margin: 0;
+          border-left: 3px solid #ff502e;
+          padding-left: 6px;
+          font-weight: 600;
+        }
+        span{
+          padding-right: 10px;
+          font-family: SourceHanSansCN-Regular;
+          font-size: 12px;
+          color: #666;
+          margin-top: 0;
+        }
+      }
+      .card-table__title{
+        margin: 10px;
+        padding: 10px 0;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+      }
+      .card-table__body{
+        margin: 10px;
+        padding: 10px 0;
+      }
+    }
+    .card-news{
+      .el-card__body{
+        padding: 15px 0 0 20px;
+        background: #fff;
+        box-sizing: border-box;
+      }
     }
     .text {
       font-size: 14px;
     }
-
     .item {
       padding: 18px 0;
     }
-    .ranking_title{
-      margin: 30px 0;
-      box-sizing: border-box;
-      overflow: auto;
-      h2{
-        font-family: SourceHanSansCN-Regular;
-        font-size: 24px;
-        display: inline-block;
-        color: #333;
-        letter-spacing: 1px;
-      }
-      span{
-        float: right;
-      }
+  }
+  .ranking_title{
+    margin: 30px 0;
+    box-sizing: border-box;
+    overflow: auto;
+    h2{
+      font-family: SourceHanSansCN-Regular;
+      font-size: 24px;
+      display: inline-block;
+      color: #333;
+      letter-spacing: 1px;
+    }
+    span{
+      margin-top: 10px;
+      font-family: SourceHanSansCN-Regular;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      float: right;
     }
   }
   .home__article-content{
@@ -249,6 +362,36 @@ export default {
     padding: 0;
     box-sizing: border-box;
     background: #fafafa;
+    .el-card__body{
+      box-sizing: border-box;
+    }
+    .content-img{
+      position: relative;
+      width: 320px;
+      height: 180px;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+      span{
+        display: block;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 30px;
+        line-height: 25px;
+        padding-left: 10px;
+        box-sizing: border-box;
+        font-family: MicrosoftYaHei;
+        font-size: 13px;
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        background: linear-gradient(transparent, 30%, rgba(0,0,0,0.5));
+      }
+    }
   }
   .home__article-img{
     width: 1180px;
