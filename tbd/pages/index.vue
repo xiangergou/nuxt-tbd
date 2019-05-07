@@ -21,35 +21,37 @@
         </el-card>
       </article>
       <el-carousel :interval="5000" arrow="always">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <img src="https://txws-tbd.oss-cn-qingdao.aliyuncs.com/image/20190128/20190128_5d2719cf195f40b1b2359a7ad0ef0767.png" alt="">
+        <el-carousel-item v-for="(item, i) in banners" :key="i">
+          <img v-lazy="item.icon" alt="">
         </el-carousel-item> 
       </el-carousel>
     </section>
     <!-- 最新排行 -->
     <section class="home__article-ranking">
-      <el-row type="flex" class="row-bg" justify="space-around" :gutter="10">
-        <el-col  style="width:410px;">
-          <div class="ranking_title">
-            <h2>最新排行</h2>
-          </div>
-          <el-card class="box-card">
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
+      <el-row type="flex" class="row-bg"  justify="space-between">
+        <el-col :span="18" style="margin-right:20px">
+            <div class="ranking_title">
+              <h2>最新排行</h2>
+              <span>更多</span>
             </div>
-          </el-card>
+           <el-row type="flex" class="row-bg"  justify="space-between">
+              <el-col :span="12" style="margin-right:20px">
+                <el-card class="box-card">
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{'列表内容 ' + o }}
+                  </div>
+                </el-card>
+             </el-col>
+             <el-col :span="12">
+               <el-card class="box-card">
+                  <div v-for="o in 4" :key="o" class="text item">
+                    {{'列表内容 ' + o }}
+                  </div>
+                </el-card>
+             </el-col>
+           </el-row>
         </el-col>
-        <el-col  style="width:410px;">
-          <div class="ranking_title">
-            <span style="display:inline-block;margin-top:9px;">更多</span>
-          </div>
-          <el-card class="box-card">
-            <div v-for="o in 4" :key="o" class="text item">
-              {{'列表内容 ' + o }}
-            </div>
-          </el-card>
-        </el-col>
-        <el-col style="width:320px;">
+        <el-col :span="6">
           <div class="ranking_title">
             <h2>最新排行</h2>
             <span>更多</span>
@@ -155,9 +157,25 @@
   </div>
   </template>
 <script>
-
+import { homeApi } from '~/api/home.js';
 export default {
+  
   components: {
+  },
+  data() {
+    return {
+      banners: []
+    }
+  },
+  methods: {
+    getBanner() {
+      homeApi.getBanners().then(res => {
+        this.banners = res.data.data;
+      })
+    }
+  },
+  mounted () {
+    this.getBanner()
   }
 }
 </script>
@@ -280,6 +298,3 @@ export default {
 }
 
 </style>
-
-
-

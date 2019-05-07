@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background:#f7f7f7">
     <header class="home__nav">
       <el-menu :default-active="activeIndex" class="el-menu-demo"   mode="horizontal" @select="handleSelect">
         <el-menu-item style="padding-left:0">
@@ -54,7 +54,6 @@
 <style lang="scss">
 .home__nav{
   overflow: auto;
-  background: #f7f7f7;
   .el-menu{
     border: none !important;
     margin: 0 auto;

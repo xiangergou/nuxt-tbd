@@ -1,6 +1,5 @@
 const pkg = require('./package')
 
-
 module.exports = {
   mode: 'universal',
 
@@ -36,7 +35,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    // { src: '~plugins/element-ui', ssr: false, }
+    { src: '~/plugins/vue-lazyload', ssr: true },
+    '~/plugins/axios',
     '~plugins/element-ui'
   ],
 
