@@ -35,6 +35,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/waves', ssr: false },
     { src: '~/plugins/vue-lazyload', ssr: true },
     '~/plugins/axios',
     '~plugins/element-ui'

@@ -114,6 +114,33 @@
             <span>更多</span>
           </div>
           <el-card :body-style="{ height: '420px' }">
+            <el-row style="margin-bottom: 20px;">
+              <el-col :span="10">
+                <div class="content-img">
+                  <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                  <span>直播不卖货？5个技巧帮你解决！</span>
+                </div>
+              </el-col>
+              <el-col :span="14">
+                <div style="border-bottom:1px solid #ccc;">
+                  <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
+                  <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
+                  <el-row>
+                    <el-col :span="6">dsadsadsa</el-col>
+                    <el-col :span="6">dsadsadsa</el-col>
+                  </el-row>
+                </div>
+                <div style="border-bottom:1px solid #ccc;">
+                  <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
+                  <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
+                  <el-row>
+                    <el-col :span="6">dsadsadsa</el-col>
+                    <el-col :span="6">dsadsadsa</el-col>
+                  </el-row>
+                </div>
+              </el-col>
+            </el-row>
+            
             <el-row>
               <el-col :span="10">
                 <div class="content-img">

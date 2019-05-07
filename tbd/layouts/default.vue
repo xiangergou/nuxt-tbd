@@ -16,7 +16,7 @@
         <el-menu-item index="3" >内容电商</el-menu-item>
         <el-menu-item style="float: right">
           <el-input placeholder="请输入关键词搜索" v-model="input3" class="input-with-select">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-button slot="append" icon="el-icon-search" v-waves></el-button>
         </el-input>
         </el-menu-item>
       </el-menu>
