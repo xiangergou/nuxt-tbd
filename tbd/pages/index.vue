@@ -1,5 +1,5 @@
 <template>
-  <div class="home_container">
+  <div class="home_container" id="home_container">
     <section class="home__banner">
       <article class="home__banner-content">
         <el-card class="box-card">
@@ -110,59 +110,58 @@
       <el-row justify="space-between" type="flex">
         <el-col :span="17" style="margin-right:20px;">
           <div class="ranking_title">
-            <h2>最新排行</h2>
+            <h2>内容电商</h2>
             <span>更多</span>
           </div>
           <el-card :body-style="{ height: '420px' }">
-            <el-row style="margin-bottom: 20px;">
+            <el-row style="margin-bottom: 20px;" class="article-content__left">
               <el-col :span="10">
                 <div class="content-img">
                   <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
                   <span>直播不卖货？5个技巧帮你解决！</span>
                 </div>
               </el-col>
-              <el-col :span="14">
-                <div style="border-bottom:1px solid #ccc;">
+              <el-col :span="14" class="article-content-left__section">
+                <div class="setion-body">
                   <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
                   <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
-                  <el-row>
-                    <el-col :span="6">dsadsadsa</el-col>
-                    <el-col :span="6">dsadsadsa</el-col>
+                  <el-row class="section-tags">
+                    <el-col :span="6">     岳遥  5小时前</el-col>
+                    <el-col :span="6">     岳遥  5小时前</el-col>
                   </el-row>
                 </div>
-                <div style="border-bottom:1px solid #ccc;">
+                <div class="setion-body">
                   <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
                   <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
-                  <el-row>
-                    <el-col :span="6">dsadsadsa</el-col>
-                    <el-col :span="6">dsadsadsa</el-col>
+                  <el-row class="section-tags">
+                    <el-col :span="6">岳遥  5小时前</el-col>
+                    <el-col :span="6">岳遥  5小时前</el-col>
                   </el-row>
                 </div>
               </el-col>
             </el-row>
-            
-            <el-row>
+            <el-row style="margin-bottom: 20px;" class="article-content__left">
               <el-col :span="10">
                 <div class="content-img">
                   <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
                   <span>直播不卖货？5个技巧帮你解决！</span>
                 </div>
               </el-col>
-              <el-col :span="14">
-                <div style="border-bottom:1px solid #ccc;">
+              <el-col :span="14" class="article-content-left__section">
+                <div class="setion-body">
                   <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
                   <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
-                  <el-row>
-                    <el-col :span="6">dsadsadsa</el-col>
-                    <el-col :span="6">dsadsadsa</el-col>
+                  <el-row class="section-tags">
+                    <el-col :span="6">     岳遥  5小时前</el-col>
+                    <el-col :span="6">     岳遥  5小时前</el-col>
                   </el-row>
                 </div>
-                <div style="border-bottom:1px solid #ccc;">
+                <div class="setion-body">
                   <p>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</p>
                   <span>一禅小和尚抖音粉丝将超4500w，优质形象IP如何吸粉？</span>
-                  <el-row>
-                    <el-col :span="6">dsadsadsa</el-col>
-                    <el-col :span="6">dsadsadsa</el-col>
+                  <el-row class="section-tags">
+                    <el-col :span="6">岳遥  5小时前</el-col>
+                    <el-col :span="6">岳遥  5小时前</el-col>
                   </el-row>
                 </div>
               </el-col>
@@ -179,10 +178,13 @@
               <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
               <span>直播不卖货？5个技巧帮你解决！</span>
             </div>
-            <div style="padding: 14px;">
-              <div class="bottom clearfix">
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
+            <div class="content-article">
+              <h3>腾讯上线短视频APP，支付宝小程序用户规模破亿｜小榜情报站 </h3>
+              <span>小榜君  2019-4-26</span>
+            </div>
+            <div class="content-article">
+              <h3>腾讯上线短视频APP，支付宝小程序用户规模破亿｜小榜情报站 </h3>
+              <span>小榜君  2019-4-26</span>
             </div>
           </el-card>
         </el-col>
@@ -191,40 +193,161 @@
     <section class="home__article-img">
       <img src="https://txws-tbd.oss-cn-qingdao.aliyuncs.com/image/20190218/20190218_6d9eb5dca9f742d6a7485b70961d0777.png" alt="">
     </section>
+    <!-- 报文 -->
     <section class="home__article-list">
-      <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="item in 4" :key="item">
+      <div class="ranking_title" style="margin-bottom:14px">
+        <h2>这就是爆文</h2>
+      </div>
+      <el-carousel indicator-position="outside" arrow="never">
+        <el-carousel-item v-for="item in 2" :key="item">
+          <div>
+            <el-row :gutter="10">
+              <el-col :span="6">
+                <el-card shadow="hover" class="article-list-card">
+                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                  <el-row class="list-card__row">
+                    <el-col :span="12" style="text-align:left">
+                      极客时间
+                    </el-col>
+                    <el-col :span="12"  style="text-align:right">
+                      阅读量：212w
+                    </el-col>
+                  </el-row>
+                </el-card>
+              </el-col>
+              <el-col :span="6">
+                <el-card shadow="hover" class="article-list-card">
+                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                  <el-row class="list-card__row">
+                    <el-col :span="12" style="text-align:left">
+                      极客时间
+                    </el-col>
+                    <el-col :span="12"  style="text-align:right">
+                      阅读量：212w
+                    </el-col>
+                  </el-row>
+                </el-card>
+              </el-col>
+              <el-col :span="6">
+                <el-card shadow="hover" class="article-list-card">
+                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                  <el-row class="list-card__row">
+                    <el-col :span="12" style="text-align:left">
+                      极客时间
+                    </el-col>
+                    <el-col :span="12"  style="text-align:right">
+                      阅读量：212w
+                    </el-col>
+                  </el-row>
+                </el-card>
+              </el-col>
+              <el-col :span="6">
+                <el-card shadow="hover" class="article-list-card">
+                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                  <el-row class="list-card__row">
+                    <el-col :span="12" style="text-align:left">
+                      极客时间
+                    </el-col>
+                    <el-col :span="12"  style="text-align:right">
+                      阅读量：212w
+                    </el-col>
+                  </el-row>
+                </el-card>
+              </el-col>
+            </el-row>
+          <br/>
           <el-row :gutter="10">
             <el-col :span="6">
-              <el-card shadow="hover">
-                鼠标悬浮时显示
+              <el-card shadow="hover" class="article-list-card">
+                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                <el-row class="list-card__row">
+                  <el-col :span="12" style="text-align:left">
+                    极客时间
+                  </el-col>
+                  <el-col :span="12"  style="text-align:right">
+                    阅读量：212w
+                  </el-col>
+                </el-row>
               </el-card>
             </el-col>
             <el-col :span="6">
-              <el-card shadow="hover">
-                鼠标悬浮时显示
+              <el-card shadow="hover" class="article-list-card">
+                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                <el-row class="list-card__row">
+                  <el-col :span="12" style="text-align:left">
+                    极客时间
+                  </el-col>
+                  <el-col :span="12"  style="text-align:right">
+                    阅读量：212w
+                  </el-col>
+                </el-row>
               </el-card>
             </el-col>
             <el-col :span="6">
-              <el-card shadow="hover">
-                鼠标悬浮时显示
+              <el-card shadow="hover" class="article-list-card">
+                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                <el-row class="list-card__row">
+                  <el-col :span="12" style="text-align:left">
+                    极客时间
+                  </el-col>
+                  <el-col :span="12"  style="text-align:right">
+                    阅读量：212w
+                  </el-col>
+                </el-row>
               </el-card>
             </el-col>
             <el-col :span="6">
-              <el-card shadow="hover">
-                鼠标悬浮时显示
+              <el-card shadow="hover" class="article-list-card">
+                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
+                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
+                <el-row class="list-card__row">
+                  <el-col :span="12" style="text-align:left">
+                    极客时间
+                  </el-col>
+                  <el-col :span="12"  style="text-align:right">
+                    阅读量：212w
+                  </el-col>
+                </el-row>
               </el-card>
             </el-col>
           </el-row>
+        </div>
         </el-carousel-item>
       </el-carousel>
     </section>
     <section class="home__article-link">
       <div class="content">
-        <el-row :gutter="20">
-          <el-col :span="16">212121</el-col>
-          <el-col :span="8">212121</el-col>
-        </el-row>
+        <div class="content-left">
+          <h3>友情链接</h3>
+          <ul>
+            <li>天下网商</li>
+            <li>天下网商</li>
+            <li>天下网商</li>
+            <li>天下网商</li>
+          </ul>
+        </div>
+        <div class="content-right">
+            <h3>友情链接</h3>
+            <ul>
+              <li>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
+                style="width: 100px; height: 100px">
+                <p>肖邦微信号</p>
+              </li>
+              <li>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
+                style="width: 100px; height: 100px">
+                <p>微信公众号</p>
+              </li>
+            </ul>
+        </div>
       </div>
     </section>
     <footer>
@@ -241,6 +364,12 @@
       <div>
         顶部
       </div>
+      <!-- <a href="#home_container"> -->
+        <a @click="backTop">
+      <div>
+        顶部
+      </div>
+      </a>
     </div>
   </div>
   </template>
@@ -270,10 +399,38 @@ export default {
       homeApi.getBanners().then(res => {
         this.banners = res.data.data;
       })
+    },
+    // 点击图片回到顶部方法，加计时器是为了过渡顺滑
+    backTop () {
+      let that = this
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
+        if (that.scrollTop === 0) {
+          clearInterval(timer)
+        }
+      }, 16)
+    },
+
+    // 为了计算距离顶部的高度，当高度大于60显示回顶部图标，小于60则隐藏
+    scrollToTop () {
+      let that = this
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      that.scrollTop = scrollTop
+      if (that.scrollTop > 0) {
+        that.btnFlag = true
+      } else {
+        that.btnFlag = false
+      }
     }
   },
   mounted () {
     this.getBanner()
+    window.addEventListener('scroll', this.scrollToTop)
+
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.scrollToTop)
   }
 }
 </script>
@@ -389,13 +546,75 @@ export default {
     padding: 0;
     box-sizing: border-box;
     background: #fafafa;
+    .article-content-left__section{
+      padding-left: 10px;
+      // padding-top: 10px;
+      height: 96px;
+      border-bottom: 1px solid #eee;
+      p{
+        font-family: MicrosoftYaHei;
+        font-size: 16px;
+        color: #333;
+        line-height: 20px;
+        text-overflow: ellipsis;
+        height: 20px;
+        width: 100%;
+        overflow: hidden;
+      }
+      span{
+        display: block;
+        margin-top: 9px;
+        font-family: MicrosoftYaHei;
+        height: 16px;
+        line-height: 16px;
+        font-size: 12px;
+        color: #999;
+        text-overflow: ellipsis;
+      }
+      .setion-body{
+        // border-bottom: 1px solid #ccc;
+        margin: 14px 0;
+      }
+      .section-tags{
+        height: 18px;
+        line-height: 18px;
+        margin-top: 13px;
+        font-family: MicrosoftYaHei;
+        font-size: 12px;
+        color: #656565;
+      }
+    }
     .el-card__body{
       box-sizing: border-box;
     }
+    .content-article{
+      padding: 19px;
+      height: 80px;
+      box-sizing: border-box;
+      cursor: pointer;
+      h3{
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
+        color: #333;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      span{
+        margin-top: 6px;
+        height: 16px;
+        line-height: 16px;
+        font-family: MicrosoftYaHei;
+        font-size: 12px;
+        color: #999;
+      }
+    }
     .content-img{
       position: relative;
-      width: 320px;
+      // width: 320px;
       height: 180px;
+      overflow: hidden;
       img{
         width: 100%;
         height: 100%;
@@ -423,7 +642,7 @@ export default {
   .home__article-img{
     width: 1180px;
     overflow: auto;
-    margin: 30px auto;
+    margin: 30px auto 0;
     padding: 0;
     img{
       width: 100%;
@@ -432,8 +651,40 @@ export default {
   .home__article-list{
     width: 1180px;
     overflow: auto;
-    margin: 30px auto;
-    padding: 0;
+    margin: 0 auto;
+    .el-carousel {
+      .el-carousel__container{
+        height: 430px !important;
+      }
+    }
+    .article-list-card{
+      h3{
+        height: 48px;
+        font-family: MicrosoftYaHei;
+        font-size: 16px;
+        color: #333;
+        line-height: 24px;
+        margin-top: 17px;
+        overflow: hidden;
+      }
+      p{
+        height: 36px;
+        font-family: MicrosoftYaHei;
+        font-size: 12px;
+        color: #999;
+        line-height: 18px;
+        margin-top: 16px;
+        overflow: hidden;
+      }
+      .list-card__row{
+        font-family: MicrosoftYaHei;
+        font-size: 12px;
+        color: #656565;
+        line-height: 18px;
+        margin-top: 23px;
+        height: 18px;
+      }
+    }
   }
   .home__article-link{
     width: 100%;
@@ -441,9 +692,27 @@ export default {
     overflow: auto;
     .content{
       width: 1180px;
-      padding: 0;
+      padding: 26px 0;
       height: 162px;
       margin: 0 auto;
+      h3{
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      ul{
+        list-style: none;
+        li{
+          text-decoration:none;
+          color: #fff;
+          display: inline-block;
+        }
+      }
+      .content-left{
+        float: left;
+      }
+      .content-right{
+        float: right;
+      }
     }
   }
   footer{
@@ -460,10 +729,21 @@ export default {
     position: fixed;
     bottom: 70px;
     right: 50%;
+    z-index: 999;
     -webkit-transform: translateX(680px);
     -ms-transform: translateX(680px);
     transform: translateX(680px);
     width: 46px;
+    div{
+      width: 46px;
+      height: 46px;
+      background: #f8f8f8;
+      margin-bottom: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
   }
 }
 
