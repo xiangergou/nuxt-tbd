@@ -28,13 +28,15 @@ module.exports = {
   */
   css: [
     '~assets/css/reset.css',
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'swiper/dist/css/swiper.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: "~/plugins/swiper.js", ssr: false },
     { src: '~/plugins/waves', ssr: false },
     { src: '~/plugins/vue-lazyload', ssr: true },
     '~/plugins/axios',

@@ -3,21 +3,48 @@
     <section class="home__banner">
       <article class="home__banner-content">
         <el-card class="box-card">
-          <el-row :gutter="20">
-            <el-col :span="3">榜单</el-col>
-            <el-col :span="16" :offset="5">
-              淘榜单 第 62 期   累计发布 1631 个榜单
+          <el-row class="title">
+            <span style="float:left">榜单</span>
+            <span style="float:right">淘榜单 第 62 期   累计发布 1631 个榜单</span>
+          </el-row>
+          <el-row :gutter="10" class="content">
+            <el-col :span="6">
+              <a href="">
+                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" >
+                <p>达人榜</p>
+              </a>
+            </el-col>
+            <el-col :span="6">
+              <a href="">
+                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" >
+                <p>达人榜</p>
+              </a>
+            </el-col>
+            <el-col :span="6">
+              <a href="">
+                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" >
+                <p>达人榜</p>
+              </a>
+            </el-col>
+            <el-col :span="6">
+              <a href="">
+                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" >
+                <p>达人榜</p>
+              </a>
             </el-col>
           </el-row>
-          <el-row :gutter="10">
-            <el-col :span="6">榜单</el-col>
-            <el-col :span="6">榜单</el-col>
-            <el-col :span="6">榜单</el-col>
-            <el-col :span="6">榜单</el-col>
-          </el-row>
         </el-card>
-        <el-card class="box-card" style="margin-top:10px;">
-          <h4>文章</h4>
+        <el-card class="box-card article-card" style="margin-top:10px;">
+          <h4 style="margin-bottom:10px">文章</h4>
+            <div  v-swiper:swiper="swiperOption" ref="swiperBox"  style="overflow: hidden; height: 104px;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(banner,i) in banners" :key="i">
+                  <span><i style="font-size: 10px;">• </i> dsa</span>
+                  <span>• dsa</span>
+                  <span>• dsa</span>
+                </div>
+            </div>
+          </div>
         </el-card>
       </article>
       <el-carousel :interval="5000" arrow="always">
@@ -355,31 +382,63 @@
       <span _ngcontent-c4="">&nbsp;&nbsp;|&nbsp;&nbsp;未经许可不得转载&nbsp;&nbsp;|&nbsp;&nbsp;浙ICP备11003104号-2&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证：新出网证（浙）字39号</span>
     </footer>
     <div class="fixed">
-      <div>
+      <el-button class="home-active__btn">
+        <div @mouseout="active=false"  @mouseover="active=true">
+          <div v-if="active">顶部</div>
+          <div v-else class="btn-more">
+            <p style="margin-bottom: 2px">更多</p>
+            <p>内容</p>
+          </div>
+        </div>
+      </el-button>
+      <el-button>
+        <el-popover
+          placement="left"
+          title="标题"
+          width="200"
+          trigger="hover"
+          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+          <p slot="reference">微信号</p>
+        </el-popover>
+      </el-button>
+      <el-button>
+        <el-popover
+          placement="left"
+          title="标题"
+          width="200"
+          trigger="hover"
+          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+          <p slot="reference">二维码</p>
+        </el-popover>
+      </el-button>
+      <el-button @click="backTop">
         顶部
-      </div>
-      <div>
-        顶部
-      </div>
-      <div>
-        顶部
-      </div>
-      <!-- <a href="#home_container"> -->
-        <a @click="backTop">
-      <div>
-        顶部
-      </div>
-      </a>
+      </el-button>
     </div>
   </div>
   </template>
 <script>
 import { homeApi } from '~/api/home.js';
+import Vue from 'vue'
+
 export default {
   components: {
+    // Swiper
   },
   data() {
     return {
+      imgs: [
+        'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
+        'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
+      ],
+      swiperOption: {
+        speend: 300,
+        direction: 'vertical',
+        slidesPerView: 1,
+        autoplay: true
+      },
+      active: false,
       banners: [],
       reverse: true,
       activities: [{
@@ -427,7 +486,6 @@ export default {
   mounted () {
     this.getBanner()
     window.addEventListener('scroll', this.scrollToTop)
-
   },
   destroyed () {
     window.removeEventListener('scroll', this.scrollToTop)
@@ -460,6 +518,55 @@ export default {
         border-radius: 4px;
         color: #fff;
         border: none;
+        padding: 0 20px;
+        box-sizing: border-box;
+        .el-card__body{
+          padding: 0;
+        }
+        .title{
+          height: 51px;
+          border-bottom: 1px solid rgba(191,191,191,.3);
+          line-height:51px;
+          padding:0
+        }
+        .content{
+          height:114px;
+          display:flex;
+          align-items:center;
+          a{
+            color:#fff;
+            text-decoration: none;
+          }
+          .el-col{
+            border-right:1px solid #Ccc;
+            text-align:center;
+            img{
+              height:38px;
+              width:auto;
+              margin-bottom: 4px;
+            }
+          }
+          .el-col:last-child{
+            border:none;
+          }
+        }
+      }
+      .article-card{
+        padding-top: 20px;
+        box-sizing: border-box;
+      }
+    }
+    .swiper-slide{
+      span{
+        cursor: pointer;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 13px;
+        color: #fff;
+        display: block;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        height: 28px;
+        line-height: 18px;
       }
     }
   }
@@ -522,7 +629,6 @@ export default {
   .ranking_title{
     margin: 30px 0;
     box-sizing: border-box;
-    overflow: auto;
     h2{
       font-family: SourceHanSansCN-Regular;
       font-size: 24px;
@@ -734,15 +840,31 @@ export default {
     -ms-transform: translateX(680px);
     transform: translateX(680px);
     width: 46px;
-    div{
+    button{
       width: 46px;
       height: 46px;
-      background: #f8f8f8;
+      background: #fff;
       margin-bottom: 3px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
+    }
+    .el-button+.el-button{
+      margin-left:0;
+    }
+  }
+  .home-active__btn{
+    background:#ff502e;
+    color:#656565;
+    border:none;
+    .btn-more{
+      margin-top:-3px;
+      margin-right:-3px;
+      font-weight: 400;
+      p{
+        letter-spacing: 4px;
+      }
     }
   }
 }
