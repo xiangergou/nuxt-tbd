@@ -381,40 +381,7 @@
       <span _ngcontent-c4="" style="color: #90BEF9">浙江天下网商网络传媒有限公司</span>
       <span _ngcontent-c4="">&nbsp;&nbsp;|&nbsp;&nbsp;未经许可不得转载&nbsp;&nbsp;|&nbsp;&nbsp;浙ICP备11003104号-2&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证：新出网证（浙）字39号</span>
     </footer>
-    <div class="fixed">
-      <el-button class="home-active__btn">
-        <div @mouseout="active=false"  @mouseover="active=true">
-          <div v-if="active">顶部</div>
-          <div v-else class="btn-more">
-            <p style="margin-bottom: 2px">更多</p>
-            <p>内容</p>
-          </div>
-        </div>
-      </el-button>
-      <el-button>
-        <el-popover
-          placement="left"
-          title="标题"
-          width="200"
-          trigger="hover"
-          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-          <p slot="reference">微信号</p>
-        </el-popover>
-      </el-button>
-      <el-button>
-        <el-popover
-          placement="left"
-          title="标题"
-          width="200"
-          trigger="hover"
-          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-          <p slot="reference">二维码</p>
-        </el-popover>
-      </el-button>
-      <el-button @click="backTop">
-        顶部
-      </el-button>
-    </div>
+ 
   </div>
   </template>
 <script>
@@ -458,37 +425,10 @@ export default {
       homeApi.getBanners().then(res => {
         this.banners = res.data.data;
       })
-    },
-    // 点击图片回到顶部方法，加计时器是为了过渡顺滑
-    backTop () {
-      let that = this
-      let timer = setInterval(() => {
-        let ispeed = Math.floor(-that.scrollTop / 5)
-        document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
-        if (that.scrollTop === 0) {
-          clearInterval(timer)
-        }
-      }, 16)
-    },
-
-    // 为了计算距离顶部的高度，当高度大于60显示回顶部图标，小于60则隐藏
-    scrollToTop () {
-      let that = this
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      that.scrollTop = scrollTop
-      if (that.scrollTop > 0) {
-        that.btnFlag = true
-      } else {
-        that.btnFlag = false
-      }
     }
   },
   mounted () {
     this.getBanner()
-    window.addEventListener('scroll', this.scrollToTop)
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.scrollToTop)
   }
 }
 </script>
@@ -831,29 +771,7 @@ export default {
     color: #9d9e9e;
     background: #3c3e40;
   }
-  .fixed{
-    position: fixed;
-    bottom: 70px;
-    right: 50%;
-    z-index: 999;
-    -webkit-transform: translateX(680px);
-    -ms-transform: translateX(680px);
-    transform: translateX(680px);
-    width: 46px;
-    button{
-      width: 46px;
-      height: 46px;
-      background: #fff;
-      margin-bottom: 3px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-    .el-button+.el-button{
-      margin-left:0;
-    }
-  }
+ 
   .home-active__btn{
     background:#ff502e;
     color:#656565;
