@@ -4,7 +4,8 @@
       <el-menu :default-active="activeIndex" class="el-menu-demo"   mode="horizontal" @select="handleSelect">
         <el-menu-item style="padding-left:0">
           <nuxt-link to="/" class="navbar-logo">
-            <img src="~assets/images/logo.svg">
+            <img src="~assets/images/logo.svg"
+            style="height: 40px;">
           </nuxt-link>
           <nuxt-link to="/" class="navbar-logo">
             <img src="~assets/images/logo-word.png" 

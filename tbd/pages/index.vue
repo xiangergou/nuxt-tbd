@@ -38,10 +38,17 @@
           <h4 style="margin-bottom:10px">文章</h4>
             <div  v-swiper:swiper="swiperOption" ref="swiperBox"  style="overflow: hidden; height: 104px;">
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(banner,i) in banners" :key="i">
-                  <span><i style="font-size: 10px;">• </i> dsa</span>
-                  <span>• dsa</span>
-                  <span>• dsa</span>
+                <div class="swiper-slide" v-for="n in 2" :key="n">
+                  <div>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    </div>
+                  <div>
+                   <span>4</span>
+                   <span>5</span>
+                   <span>6</span>
+                  </div>
                 </div>
             </div>
           </div>
@@ -408,6 +415,7 @@ export default {
       active: false,
       banners: [],
       reverse: true,
+      articles: [],
       activities: [{
         content: '活动按期开始',
         timestamp: '2018-04-15'
@@ -421,14 +429,23 @@ export default {
     }
   },
   methods: {
-    getBanner() {
-      homeApi.getBanners().then(res => {
-        this.banners = res.data.data;
+    getTaoHot() {
+      homeApi.getTaoHot().then(res => {
+        this.articles = res.data.data;
       })
+    },
+    async getBanners () {
+      this.banners = await this.$store.dispatch('home/getBanner')
+      // this.banners =  = this.$store.state.sessionStorage.banners
+        // ? this.$store.state.home.bannerImgList
+        // : await this.$store.dispatch('home/getBanner')
+    },
+    init () {
+      Promise.all([this.getBanners(), this.getTaoHot()])
     }
   },
   mounted () {
-    this.getBanner()
+    this.init()
   }
 }
 </script>

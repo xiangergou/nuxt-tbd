@@ -10,7 +10,7 @@ import qs from 'qs'
 /* 创建axios实例 */
 const service = axios.create({
   // baseURL: process.env.BASE_API,
-  baseURL: 'http://139.129.236.203:4010/',
+  baseURL: 'http://30.14.247.154:4010/',
   timeout: 5000 // 请求超时时间
   // interceptors: true, // 是否开启response拦截器 默认true
   // noAssign: false // 请求体是否带defaultConfig 默认false
