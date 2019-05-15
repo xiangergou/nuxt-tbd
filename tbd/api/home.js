@@ -11,7 +11,7 @@ export const homeApi = {
   },
 
   // 获取指定篇数的淘内热文
-  getTaoHot(params = { number: 3}) {
+  getTaoHot(params = { number: 9}) {
     return fetch({
       url: '/api/mainpage/taohot',
       method: 'get',
@@ -20,7 +20,7 @@ export const homeApi = {
   },
 
   // 获取指定分类文章 目前是按照时间排序
-  getCategoryArticles(params = { categoryId: 3, number: 3 }) {
+  getCategoryArticles(params = { number: 9 }) {
     return fetch({
       url: '/api/mainpage/categoryArticles',
       method: 'get',
@@ -57,8 +57,25 @@ export const homeApi = {
   getRanklistsummation() {
     return fetch({
       url: '/api/mainpage/ranklistsummation',
+      method: 'get'
+    })
+  },
+
+  // 获取友情链接
+  getListlinks() {
+    return fetch({
+      url: '/api/link/listlinks',
+      method: 'get'
+    })
+  },
+
+  // 获取爆文
+  getPageQuery(params = { page: 1, pageSize: 32}) {
+    return fetch({
+      url: '/api/taohot/pageQuery',
       method: 'get',
       params
     })
-  }
+  },
+
 }

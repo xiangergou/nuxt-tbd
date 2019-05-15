@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <el-row class="title">
             <span style="float:left">榜单</span>
-            <span style="float:right">淘榜单 第 62 期   累计发布 1631 个榜单</span>
+            <span style="float:right">淘榜单 第 {{ranklistCount.current}} 期   累计发布 {{ranklistCount.total}} 个榜单</span>
           </el-row>
           <el-row :gutter="10" class="content">
             <el-col :span="6">
@@ -36,18 +36,11 @@
         </el-card>
         <el-card class="box-card article-card" style="margin-top:10px;">
           <h4 style="margin-bottom:10px">文章</h4>
-            <div  v-swiper:swiper="swiperOption" ref="swiperBox"  style="overflow: hidden; height: 104px;">
+            <div v-swiper:swiper="swiperOption" ref="swiperBox"         style="overflow: hidden; height: 104px;" >
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="n in 2" :key="n">
-                  <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    </div>
-                  <div>
-                   <span>4</span>
-                   <span>5</span>
-                   <span>6</span>
+                <div class="swiper-slide" v-for="(item, i) in taoHot" :key="i">
+                  <div style="height:104 px; padding:0" v-for="(j, k) in item" :key="k">
+                    <a :href="j.link"><span><i>·</i>{{j.title}}</span></a>
                   </div>
                 </div>
             </div>
@@ -69,41 +62,16 @@
               <span>更多</span>
             </div>
            <el-row type="flex" class="row-bg" justify="space-between">
-              <el-col :span="12" style="margin-right:20px">
+              <el-col :span="12" style="margin-right:20px"  v-for="(item, i) in ranklists" :key="i">
                 <el-card class="box-card">
                   <div class="ranking_title card-title">
-                    <strong>主播综合榜 ></strong>
+                    <strong>{{item.name}} ></strong>
                     <span>2019.4.15-2019.4.21</span>
                   </div>
                   <el-row justify="space-between" class="card-table__title">
                     <el-col :span="6">排名</el-col>
-                    <el-col :span="8">昵称</el-col>
-                    <el-col :span="10" style="text-align:right">淘指数</el-col>
-                  </el-row>
-                  <el-row justify="space-between" class="card-table__body">
-                    <el-col :span="3">1</el-col>
-                    <el-col :span="3">昵称</el-col>
-                    <el-col :span="3" >昵称</el-col>
-                    <el-col :span="15" style="text-align:right">淘指数</el-col>
-                  </el-row> 
-                  <el-row justify="space-between" class="card-table__body">
-                    <el-col :span="3">1</el-col>
-                    <el-col :span="3">昵称</el-col>
-                    <el-col :span="3" >昵称</el-col>
-                    <el-col :span="15" style="text-align:right">淘指数</el-col>
-                  </el-row> 
-                </el-card>
-             </el-col>
-             <el-col :span="12">
-               <el-card class="box-card">
-                 <div class="ranking_title card-title">
-                    <strong>短视频排行榜 ></strong>
-                    <span>2019.4.15-2019.4.21</span>
-                  </div>
-                  <el-row justify="space-between" class="card-table__title">
-                    <el-col :span="6">排名</el-col>
-                    <el-col :span="8">昵称</el-col>
-                    <el-col :span="10" style="text-align:right">淘指数</el-col>
+                    <el-col :span="8">{{item.fields[0]}}</el-col>
+                    <el-col :span="10" style="text-align:right">{{item.fields[1]}}</el-col>
                   </el-row>
                   <el-row justify="space-between" class="card-table__body">
                     <el-col :span="3">1</el-col>
@@ -224,8 +192,10 @@
         </el-col>
       </el-row>
     </section>
-    <section class="home__article-img">
-      <img src="https://txws-tbd.oss-cn-qingdao.aliyuncs.com/image/20190218/20190218_6d9eb5dca9f742d6a7485b70961d0777.png" alt="">
+    <section class="home__article-img" v-for="(item, i) in adv" :key="i">
+      <a :href="item.link">
+        <img :src="item.icon" alt="">
+      </a>
     </section>
     <!-- 报文 -->
     <section class="home__article-list">
@@ -233,125 +203,27 @@
         <h2>这就是爆文</h2>
       </div>
       <el-carousel indicator-position="outside" arrow="never">
-        <el-carousel-item v-for="item in 2" :key="item">
+        <el-carousel-item v-for="(item, i) in pageQuerylist" :key="i">
           <div>
             <el-row :gutter="10">
-              <el-col :span="6">
-                <el-card shadow="hover" class="article-list-card">
-                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                  <el-row class="list-card__row">
-                    <el-col :span="12" style="text-align:left">
-                      极客时间
-                    </el-col>
-                    <el-col :span="12"  style="text-align:right">
-                      阅读量：212w
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6">
-                <el-card shadow="hover" class="article-list-card">
-                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                  <el-row class="list-card__row">
-                    <el-col :span="12" style="text-align:left">
-                      极客时间
-                    </el-col>
-                    <el-col :span="12"  style="text-align:right">
-                      阅读量：212w
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6">
-                <el-card shadow="hover" class="article-list-card">
-                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                  <el-row class="list-card__row">
-                    <el-col :span="12" style="text-align:left">
-                      极客时间
-                    </el-col>
-                    <el-col :span="12"  style="text-align:right">
-                      阅读量：212w
-                    </el-col>
-                  </el-row>
-                </el-card>
-              </el-col>
-              <el-col :span="6">
-                <el-card shadow="hover" class="article-list-card">
-                  <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                  <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                  <el-row class="list-card__row">
-                    <el-col :span="12" style="text-align:left">
-                      极客时间
-                    </el-col>
-                    <el-col :span="12"  style="text-align:right">
-                      阅读量：212w
-                    </el-col>
-                  </el-row>
-                </el-card>
+              <el-col :span="6" v-for="(j, k) in item" :key="k" style="margin-top:10px;">
+                <a :href="j.link">
+                  <el-card shadow="hover" class="article-list-card">
+                    <h3>{{j.title}}</h3>
+                    <p>{{j.brief}}</p>
+                    <el-row class="list-card__row">
+                      <el-col :span="12" style="text-align:left">
+                        {{j.daren}}
+                      </el-col>
+                      <el-col :span="12"  style="text-align:right">
+                        阅读量：{{j.readCount}}w
+                      </el-col>
+                    </el-row>
+                  </el-card>
+                </a>
               </el-col>
             </el-row>
           <br/>
-          <el-row :gutter="10">
-            <el-col :span="6">
-              <el-card shadow="hover" class="article-list-card">
-                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                <el-row class="list-card__row">
-                  <el-col :span="12" style="text-align:left">
-                    极客时间
-                  </el-col>
-                  <el-col :span="12"  style="text-align:right">
-                    阅读量：212w
-                  </el-col>
-                </el-row>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card shadow="hover" class="article-list-card">
-                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                <el-row class="list-card__row">
-                  <el-col :span="12" style="text-align:left">
-                    极客时间
-                  </el-col>
-                  <el-col :span="12"  style="text-align:right">
-                    阅读量：212w
-                  </el-col>
-                </el-row>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card shadow="hover" class="article-list-card">
-                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                <el-row class="list-card__row">
-                  <el-col :span="12" style="text-align:left">
-                    极客时间
-                  </el-col>
-                  <el-col :span="12"  style="text-align:right">
-                    阅读量：212w
-                  </el-col>
-                </el-row>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card shadow="hover" class="article-list-card">
-                <h3>超级夺人眼球，红唇中演绎万重风情！</h3>
-                <p>滋润，够红，雾面的我很喜欢，价格实惠，真心不错。口红有种淡淡的清香，颜色也很好看，超级夺人眼球，红唇中演绎万重风情！</p>
-                <el-row class="list-card__row">
-                  <el-col :span="12" style="text-align:left">
-                    极客时间
-                  </el-col>
-                  <el-col :span="12"  style="text-align:right">
-                    阅读量：212w
-                  </el-col>
-                </el-row>
-              </el-card>
-            </el-col>
-          </el-row>
         </div>
         </el-carousel-item>
       </el-carousel>
@@ -361,26 +233,25 @@
         <div class="content-left">
           <h3>友情链接</h3>
           <ul>
-            <li>天下网商</li>
-            <li>天下网商</li>
-            <li>天下网商</li>
-            <li>天下网商</li>
+              <li v-for="(item, i) in listlinks" :key="i">
+                <a :href="item.link">
+                  {{item.name}}
+                </a>
+              </li>
           </ul>
         </div>
         <div class="content-right">
-            <h3>友情链接</h3>
-            <ul>
+            <h3>联系我们</h3>
+            <ol>
               <li>
-                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
-                style="width: 100px; height: 100px">
-                <p>肖邦微信号</p>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <span>肖邦微信号</span>
               </li>
               <li>
-                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
-                style="width: 100px; height: 100px">
-                <p>微信公众号</p>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <span>微信公众号</span>
               </li>
-            </ul>
+            </ol>
         </div>
       </div>
     </section>
@@ -393,7 +264,8 @@
   </template>
 <script>
 import { homeApi } from '~/api/home.js';
-import Vue from 'vue'
+import Vue from 'vue';
+import { sliceArray } from '~/utils/tool.js'
 
 export default {
   components: {
@@ -401,6 +273,12 @@ export default {
   },
   data() {
     return {
+      ranklists: [],
+      ranklistCount: {}, // 榜单统计
+      adv: {}, // 广告
+      listlinks: [], // 友情链接
+      taoHot: [],
+      pageQuerylist: [], // 爆文列表
       imgs: [
         'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
         'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',
@@ -431,7 +309,44 @@ export default {
   methods: {
     getTaoHot() {
       homeApi.getTaoHot().then(res => {
-        this.articles = res.data.data;
+        let data = res.data.data;
+        // let newData = [...Array(data.length / 3).keys()];
+        let newData = sliceArray(data, 3);
+        this.taoHot = newData;
+        console.log(newData, 'newData')
+      })
+    },
+    getCategoryArticles() {
+      homeApi.getCategoryArticles().then(res => {
+        // console.log(res.data.data, 'CategoryArticles')
+        this.ranklists = res.data.data;
+        // this.articles = res.data.data;
+      })
+    },
+    getRanklistsummation() {
+      homeApi.getRanklistsummation().then(res => {
+        this.ranklistCount = res.data.data;
+      })
+    },
+    getListMainAdv() {
+      homeApi.getListMainAdv().then(res => {
+        this.adv = res.data.data;
+      })
+    },
+    getListAssistant() {
+      homeApi.getListAssistant().then(res => {
+        console.log(res.data.data, 'ListAssistant')
+      })
+    },
+    getListlinks() {
+      homeApi.getListlinks().then(res => {
+        this.listlinks = res.data.data;
+      })
+    },
+    getPageQuery() {
+      homeApi.getPageQuery().then(res => {
+        console.log(res.data.data, 'resddddddddddddddddddddddddd')
+        this.pageQuerylist = sliceArray(res.data.data.items, 8);
       })
     },
     async getBanners () {
@@ -441,7 +356,8 @@ export default {
         // : await this.$store.dispatch('home/getBanner')
     },
     init () {
-      Promise.all([this.getBanners(), this.getTaoHot()])
+      Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
+      this.getPageQuery()])
     }
   },
   mounted () {
@@ -605,7 +521,7 @@ export default {
   .home__article-content{
     width: 1180px;
     overflow: auto;
-    margin: 10px auto;
+    margin: 0px auto 10px;
     padding: 0;
     box-sizing: border-box;
     background: #fafafa;
@@ -704,11 +620,11 @@ export default {
   }
   .home__article-img{
     width: 1180px;
-    overflow: auto;
     margin: 30px auto 0;
     padding: 0;
     img{
       width: 100%;
+      height: 100%;
     }
   }
   .home__article-list{
@@ -752,22 +668,31 @@ export default {
   .home__article-link{
     width: 100%;
     background: #949494;
-    overflow: auto;
     .content{
       width: 1180px;
       padding: 26px 0;
       height: 162px;
       margin: 0 auto;
+      box-sizing: border-box;
       h3{
+        color: #FFF;
         font-size: 18px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+      a{
+        text-decoration: none;
+        color: #fff;
       }
       ul{
         list-style: none;
         li{
+          font-size: 12px;
           text-decoration:none;
           color: #fff;
           display: inline-block;
+          margin-right: 50px;
+          box-sizing: border-box;
         }
       }
       .content-left{
@@ -775,6 +700,24 @@ export default {
       }
       .content-right{
         float: right;
+        width: 180px;
+        ol{
+          display: flex;
+          li{
+            flex: 1;
+            text-align: center;
+          }
+        }
+        img{
+          width: 45px;
+          height: 45px;
+        }
+        span{
+          display: block;
+          margin-top: 10px;
+          font-size: 12px;
+          color: #fff;
+        }
       }
     }
   }
