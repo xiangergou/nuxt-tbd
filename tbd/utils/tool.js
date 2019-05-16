@@ -12,3 +12,16 @@ export function sliceArray(array, size) {
   }
   return result;
 }
+
+// 将时间戳转化为日期格式：
+
+export function timestampToTime (timestamp) {
+  let date = new Date(timestamp);
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  month = month < 10 ? "0" + month : month;
+  day = day < 10 ? "0" + day : day;
+  return year + '-' + month + '-' + day;
+
+}

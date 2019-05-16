@@ -3,11 +3,11 @@
     <header class="home__nav">
       <el-menu :default-active="activeIndex" class="el-menu-demo"   mode="horizontal" @select="handleSelect">
         <el-menu-item style="padding-left:0">
-          <nuxt-link to="/" class="navbar-logo">
+          <nuxt-link to="/home" class="navbar-logo">
             <img src="~assets/images/logo.svg"
             style="height: 40px;">
           </nuxt-link>
-          <nuxt-link to="/" class="navbar-logo">
+          <nuxt-link to="/home" class="navbar-logo">
             <img src="~assets/images/logo-word.png" 
             style="height: 40px;width: 120px;margin-left: 10px">
           </nuxt-link>
@@ -73,17 +73,17 @@
         switch (key) {
           case '1':
             this.$router.push({
-              path: '/'
+              path: '/home'
             })
             break;
           case '2':
             this.$router.push({
-              path: '/navi/list'
+              path: '/navi'
             })
             break;
           case '3':
             this.$router.push({
-              path: '/navi/information'
+              path: '/article'
             })
             break;
         }

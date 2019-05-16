@@ -57,9 +57,29 @@ export default {
     // Will change every 10 secondes
     return Math.floor(Date.now() / 10000)
   },
+  async asyncData() {
+    const pageList = await homeApi.getPageQuery();
+    const pageQuerylist = sliceArray(pageList.data.data.items, 8);
+    const linkList = await homeApi.getListlinks();
+    const advList = await homeApi.getListMainAdv();
+    const articleList = await homeApi.getCategoryArticles();
+    const taoHotList = await homeApi.getTaoHot();
+    const taoHot = sliceArray(taoHotList.data.data, 3);
+    const rankList = await homeApi.getRanklistsummation();
+    const bannerList = await homeApi.getBanners();
+    return {
+      pageQuerylist,
+      listlinks: linkList.data.data,
+      adv: advList.data.data,
+      ranklists: articleList.data.data,
+      taoHot,
+      ranklistCount: rankList.data.data,
+      banners: bannerList.data.data
+    };
+  },
   data() {
     return {
-      ranklists: [],
+      ranklists: [], // 排行列表
       ranklistCount: {}, // 榜单统计
       adv: {}, // 广告
       listlinks: [], // 友情链接
@@ -81,60 +101,17 @@ export default {
     }
   },
   methods: {
-    getTaoHot() {
-      homeApi.getTaoHot().then(res => {
-        let data = res.data.data;
-        // let newData = [...Array(data.length / 3).keys()];
-        let newData = sliceArray(data, 3);
-        this.taoHot = newData;
-        console.log(newData, 'newData')
-      })
-    },
-    getCategoryArticles() {
-      homeApi.getCategoryArticles().then(res => {
-        // console.log(res.data.data, 'CategoryArticles')
-        this.ranklists = res.data.data;
-        // this.articles = res.data.data;
-      })
-    },
-    getRanklistsummation() {
-      homeApi.getRanklistsummation().then(res => {
-        this.ranklistCount = res.data.data;
-      })
-    },
-    getListMainAdv() {
-      homeApi.getListMainAdv().then(res => {
-        this.adv = res.data.data;
-      })
-    },
     getListAssistant() {
       homeApi.getListAssistant().then(res => {
         console.log(res.data.data, 'ListAssistant')
       })
     },
-    getListlinks() {
-      homeApi.getListlinks().then(res => {
-        this.listlinks = res.data.data;
-      })
-    },
-    getPageQuery() {
-      homeApi.getPageQuery().then(res => {
-        this.pageQuerylist = sliceArray(res.data.data.items, 8);
-      })
-    },
-    async getBanners () {
-      this.banners = await this.$store.dispatch('home/getBanner')
-      // this.banners = this.$store.state.home.banners.length > 1
-      //   ? this.$store.state.home.banners
-      //   : await this.$store.dispatch('home/getBanner')
-    },
     init () {
       // this.getBanners()
-      Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
-      this.getPageQuery()])
+      Promise.all([this.getListAssistant()])
     }
   },
-  mounted () {
+  async mounted () {
     this.init()
   }
 }
