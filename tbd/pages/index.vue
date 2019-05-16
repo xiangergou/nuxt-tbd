@@ -354,9 +354,9 @@ export default {
       //   : await this.$store.dispatch('home/getBanner')
     },
     init () {
-      this.getBanners()
-      // Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
-      // this.getPageQuery()])
+      // this.getBanners()
+      Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
+      this.getPageQuery()])
     }
   },
   mounted () {

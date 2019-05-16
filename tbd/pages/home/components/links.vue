@@ -1,0 +1,46 @@
+<template>
+    <section class="home__article-link">
+      <div class="content">
+        <div class="content-left">
+          <h3>友情链接</h3>
+          <ul>
+              <li v-for="(item, i) in listlinks" :key="i">
+                <a :href="item.link">
+                  {{item.name}}
+                </a>
+              </li>
+          </ul>
+        </div>
+        <div class="content-right">
+            <h3>联系我们</h3>
+            <ol>
+              <li>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <span>肖邦微信号</span>
+              </li>
+              <li>
+                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <span>微信公众号</span>
+              </li>
+            </ol>
+        </div>
+      </div>
+    </section>
+</template>
+
+<script>
+  export default {
+    name: 'links',
+    serverCacheKey: props => props.listlinks,
+    props: {
+      listlinks: {
+        type: Array,
+        default: () => []
+      }
+    },
+  }
+</script>
+
+<style scoped>
+
+</style>

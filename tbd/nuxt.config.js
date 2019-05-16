@@ -63,8 +63,7 @@ module.exports = {
     extend(config, ctx) {
     }
   },
-
-
+  
   render: {
     bundleRenderer: {
       cache: new LRU({
