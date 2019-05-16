@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const LRU = require('lru-cache')
 
 module.exports = {
   mode: 'universal',
@@ -60,6 +61,16 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+    }
+  },
+
+
+  render: {
+    bundleRenderer: {
+      cache: new LRU({
+        max: 1000,
+        maxAge: 1000 * 60 * 15
+      })
     }
   }
 }

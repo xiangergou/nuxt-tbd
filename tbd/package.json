@@ -15,8 +15,9 @@
     "cross-env": "^5.2.0",
     "element-ui": "2.7.2",
     "koa": "^2.6.2",
+    "lru-cache": "5.1.1",
+    "md5": "2.2.1",
     "nuxt": "2.6.2",
-    "nuxt-vuex-localstorage": "1.2.6",
     "qs": "6.7.0",
     "vue-awesome-swiper": "3.1.3"
   },

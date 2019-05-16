@@ -264,7 +264,6 @@
   </template>
 <script>
 import { homeApi } from '~/api/home.js';
-import Vue from 'vue';
 import { sliceArray } from '~/utils/tool.js'
 
 export default {
@@ -345,19 +344,19 @@ export default {
     },
     getPageQuery() {
       homeApi.getPageQuery().then(res => {
-        console.log(res.data.data, 'resddddddddddddddddddddddddd')
         this.pageQuerylist = sliceArray(res.data.data.items, 8);
       })
     },
     async getBanners () {
       this.banners = await this.$store.dispatch('home/getBanner')
-      // this.banners =  = this.$store.state.sessionStorage.banners
-        // ? this.$store.state.home.bannerImgList
-        // : await this.$store.dispatch('home/getBanner')
+      // this.banners = this.$store.state.home.banners.length > 1
+      //   ? this.$store.state.home.banners
+      //   : await this.$store.dispatch('home/getBanner')
     },
     init () {
-      Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
-      this.getPageQuery()])
+      this.getBanners()
+      // Promise.all([this.getBanners(), this.getTaoHot(), this.getCategoryArticles(), this.getRanklistsummation(), this.getListMainAdv(), this.getListAssistant(), this.getListlinks(),
+      // this.getPageQuery()])
     }
   },
   mounted () {

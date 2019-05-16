@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import qs from 'qs'
+import md5 from 'md5'
+import LRU from 'lru-cache'
 
-/* 默认请求参数 */
-// const defaultConfig = {
-//   timestamp: new Date().getTime()
-// }
+// 给api加3秒缓存
+const CACHED = new LRU({
+  max: 1000,
+  maxAge: 1000 * 3
+})
 
 /* 创建axios实例 */
 const service = axios.create({
@@ -17,14 +20,22 @@ const service = axios.create({
   // timeout: 5000 // 请求超时时间
 })
 
+let key
+
 // request拦截器
 service.interceptors.request.use(config => {
-  // Do something before request is sent
-  // if (store.getters.token) {
-  //   config.headers['X-Token'] = getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
-  // }
+
   if (config.method.toUpperCase() == 'POST') {
-    config.data = qs.stringify(config.data)
+    config.data = qs.stringify(config.data || config.params)
+  }
+  // 服务端才加缓存，浏览器端就不管了
+  if (config.cache && !process.browser) {
+    const { params = {}, data = {} } = config
+    key = md5(config.url + JSON.stringify(params) + JSON.stringify(data))
+    if (CACHED.has(key)) {
+      // 缓存命中
+      return Promise.resolve(CACHED.get(key))
+    }
   }
   return config
 }, error => {
@@ -35,6 +46,10 @@ service.interceptors.request.use(config => {
 /* respone拦截器 */
 service.interceptors.response.use(
   response => {
+    if (response.config.cache && !process.browser) {
+      // 返回结果前先设置缓存
+      CACHED.set(key, response)
+    }
     return response
   },
   error => {

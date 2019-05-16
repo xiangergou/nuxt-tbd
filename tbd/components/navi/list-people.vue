@@ -5,25 +5,27 @@
       <div style="margin-bottom:10px;">
         <span>类型:</span>
         <ul>
-          <li></li>
-          <li>dsadsad</li>
-          <li>dsadsad</li>
-          <li>dsadsad</li>
+          <li>直播</li>
+          <li>短视频</li>
         </ul>
       </div>
       <div>
         <span>类型:</span>
         <ul>
-          <li>dsadsad</li>
-          <li>dsadsad</li>
-          <li>dsadsad</li>
-          <li>dsadsad</li>
+          <li>美搭</li>
+          <li>美妆</li>
+          <li>居家</li>
+          <li>美食</li>
+          <li>母婴</li>
+          <li>数码科技</li>
+          <li>园艺</li>
+          <li>活动</li>
         </ul>
       </div>
     </el-card>
     <el-card class="box-card">
       <div>
-        <!-- <el-select v-model="value" placeholder="请选择"
+        <el-select v-model="value" placeholder="请选择"
           sizi="small">
           <el-option
             v-for="item in options"
@@ -31,7 +33,7 @@
             :label="item.label"
             :value="item.value">
           </el-option>
-        </el-select> -->
+        </el-select>
         <span style="float:right">榜单说明</span>
       </div>
       <el-row justify="space-between" class="card-table__title">
@@ -63,7 +65,10 @@
   </div>
 </template>
 
+
 <script>
+  import { listApi } from '~/api/latestlist.js';
+
   export default {
     props: {
       labelName: {
@@ -72,11 +77,29 @@
     },
     data() {
       return {
-        activeName: 'second'
+        options: [],
+        activeName: 'second',
+        value: ''
+      }
+    },
+    methods: {
+      getAreas () {
+        listApi.getAreas().then(res => {
+          console.log(res.data.data, 'res')
+        })
+      },
+      getDaren() {
+        listApi.getDaren().then(res => {
+          console.log(res.data.data, 'res')
+        })
+      },
+      init () {
+        Promise.all([this.getAreas(), this.getDaren()])
       }
     },
     mounted () {
       console.log(this.labelName, 'labelName');
+      this.init();
     },
     watch: {
       labelName(newValue, oldValue) {

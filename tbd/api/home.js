@@ -1,12 +1,12 @@
 import fetch from '@/utils/request'
 
-// 登录
 export const homeApi = {
   getBanners(params = {}) {
     return fetch({
       url: '/api/mainpage/listMaster',
       method: 'get',
-      params
+      params,
+      cache: true
     })
   },
 
@@ -15,7 +15,8 @@ export const homeApi = {
     return fetch({
       url: '/api/mainpage/taohot',
       method: 'get',
-      params
+      params,
+      cache: true
     })
   },
 
@@ -24,7 +25,8 @@ export const homeApi = {
     return fetch({
       url: '/api/mainpage/categoryArticles',
       method: 'get',
-      params
+      params,
+      cache: true
     })
   },
 
@@ -32,7 +34,8 @@ export const homeApi = {
   getListAssistant() {
     return fetch({
       url: '/api/mainpage/listAssistant',
-      method: 'get'
+      method: 'get',
+      cache: true
     })
   },
 
@@ -40,7 +43,8 @@ export const homeApi = {
   getListMainAdv() {
     return fetch({
       url: '/api/mainpage/listMainAdv',
-      method: 'get'
+      method: 'get',
+      cache: true
     })
   },
 
@@ -49,7 +53,8 @@ export const homeApi = {
     return fetch({
       url: '/api/mainpage/ranklists',
       method: 'get',
-      params
+      params,
+      cache: true
     })
   },
 
@@ -57,7 +62,8 @@ export const homeApi = {
   getRanklistsummation() {
     return fetch({
       url: '/api/mainpage/ranklistsummation',
-      method: 'get'
+      method: 'get',
+      cache: true
     })
   },
 
@@ -65,7 +71,8 @@ export const homeApi = {
   getListlinks() {
     return fetch({
       url: '/api/link/listlinks',
-      method: 'get'
+      method: 'get',
+      cache: true
     })
   },
 
@@ -74,7 +81,8 @@ export const homeApi = {
     return fetch({
       url: '/api/taohot/pageQuery',
       method: 'get',
-      params
+      params,
+      cache: true
     })
   },
 
