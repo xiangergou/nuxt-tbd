@@ -100,7 +100,12 @@
         this.articles = articleList.data.data.items;
       },
       toDetial(id) {
-        console.log(id)
+        this.$router.push({
+          path: '/article/detail',
+          query: {
+            id
+          }
+        })
       },
       timeformat(time) {
         return timestampToTime(time)
