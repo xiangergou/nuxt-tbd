@@ -60,24 +60,24 @@
       width: 100%;
     }
     .subtitle{
-          margin-top: 5px;
-    height: 38px;
-    line-height: 38px;
-    font-family: SourceHanSansCN-Normal;
-    font-size: 12px;
-    color: #666;
-    letter-spacing: 0;
-    border-bottom: 1px solid #d6d6d6;
+      margin-top: 5px;
+      height: 38px;
+      line-height: 38px;
+      font-family: SourceHanSansCN-Normal;
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 0;
+      border-bottom: 1px solid #d6d6d6;
     }
     .content-datail{
       padding: 20px 0;
     }
     .content-detail__body{
       font-family: SourceHanSansCN-Normal;
-    font-size: 14px;
-    color: #333;
-    letter-spacing: 0;
-    line-height: 28px;
+      font-size: 14px;
+      color: #333;
+      letter-spacing: 0;
+      line-height: 28px;
     }
   }
 }

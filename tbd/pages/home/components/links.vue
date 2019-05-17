@@ -15,11 +15,11 @@
             <h3>联系我们</h3>
             <ol>
               <li>
-                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <img src="~/assets/images/little-weixin.png">
                 <span>肖邦微信号</span>
               </li>
               <li>
-                <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                <img src="~/assets/images/gzh.png">
                 <span>微信公众号</span>
               </li>
             </ol>

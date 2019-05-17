@@ -26,35 +26,45 @@
     <div class="fixed">
       <el-button class="home-active__btn">
         <div @mouseout="active=false"  @mouseover="active=true">
-          <div v-if="active">顶部</div>
-          <div v-else class="btn-more">
+          <div  v-if="active" class="btn-more">
             <p style="margin-bottom: 2px">更多</p>
             <p>内容</p>
           </div>
+          <img src="~/assets/images/home.svg" alt="" style="width:46px;
+          height: 46px;" v-else>
         </div>
       </el-button>
       <el-button>
         <el-popover
           placement="left"
-          title="标题"
-          width="200"
-          trigger="hover"
-          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-          <p slot="reference">微信号</p>
+          width="80px"
+          trigger="hover">
+          <div class="wx-code">
+            <img src="~/assets/images/little-weixin.png" alt="">
+            <p style="text-align: center;margin-top:3px;">小榜微信号</p>
+          </div>
+          <p slot="reference">
+            <img src="~/assets/images/navi-wx.svg" alt="">
+          </p>
         </el-popover>
       </el-button>
       <el-button>
         <el-popover
           placement="left"
-          title="标题"
-          width="200"
-          trigger="hover"
-          content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-          <p slot="reference">二维码</p>
+          width="80px"
+          trigger="hover">
+          <div class="wx-code">
+            <img src="~/assets/images/gzh.png" alt="">
+            <p style="text-align: center; margin-top:3px;">官网公众号</p>
+          </div>
+          <p slot="reference">
+            <img src="~/assets/images/navi-qr.svg" alt="">
+          </p>
         </el-popover>
       </el-button>
       <el-button @click="backTop">
-        顶部
+        <div class="arrow"></div>
+        <p style="margin-top: 3px;font-size: 14px;">TOP</p>
       </el-button>
     </div>
   </div>
@@ -65,7 +75,7 @@
       return {
         activeIndex: '1',
         input3: '',
-        active: false
+        active: true
       };
     },
     methods: {
@@ -123,6 +133,7 @@
 
 <style lang="scss">
 .app-container {
+  background: #f7f7f7;
   .home__nav{
     overflow: auto;
     .el-menu{
@@ -147,10 +158,21 @@
     bottom: 70px;
     right: 50%;
     z-index: 999;
-    -webkit-transform: translateX(680px);
-    -ms-transform: translateX(680px);
     transform: translateX(680px);
     width: 46px;
+    .home-active__btn{
+      background:#ff502e;
+      color:#fff;
+      border:none;
+      .btn-more{
+        margin-top:-3px;
+        margin-right:-3px;
+        font-weight: 400;
+        p{
+          letter-spacing: 4px;
+        }
+      }
+    }
     button{
       width: 46px;
       height: 46px;
@@ -160,11 +182,44 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      padding:0;
+      img{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+     
     }
     .el-button+.el-button{
       margin-left:0;
     }
   }
+  .arrow{
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #666;
+  }
 }
+.el-popover{
+  width: 80px !important;
+  padding: 10px 10px 30px !important;
+  min-width: 50px !important;
+  text-align: center;
+  .wx-code{
+    width: 80px !important;
+    height: 80px;
+    box-sizing: border-box;
+    img {
+      vertical-align: middle;
+      border-style: none;
+      width: 100%;
+    }
+  }
+
+}
+
 
 </style>

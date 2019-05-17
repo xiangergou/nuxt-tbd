@@ -4,10 +4,12 @@
         <el-col :span="18" style="margin-right:20px">
             <div class="ranking_title">
               <h2>最新排行</h2>
-              <span>更多</span>
+              <span>
+                <a href="" style="color: #000">更多 ></a>
+              </span>
             </div>
            <el-row type="flex" class="row-bg" justify="space-between">
-              <el-col :span="12" style="margin-right:20px"  v-for="(item, i) in ranklists" :key="i">
+              <el-col :span="12" v-for="(item, i) in ranklists" :key="i" class="content-list">
                 <el-card class="box-card">
                   <div class="ranking_title card-title">
                     <strong>{{item.name}} ></strong>
@@ -66,6 +68,9 @@
         reverse: true
       }
     },
+    mounted() {
+      console.log(this.ranklists, 'ranklists')
+    },
     props: {
       ranklists: {
         type: Array,
@@ -79,6 +84,83 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+ .home__article-ranking{
+    width: 1180px;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    background: #fafafa;
+    .box-card {
+      width: 100%;
+      box-sizing: border-box;
+      height: 476px;
+      overflow: auto;
+      .card-title{
+        height: 40px;
+        line-height: 40px;
+        margin: 0;
+        width: 100%;
+        strong{
+          margin: 0;
+          border-left: 3px solid #ff502e;
+          padding-left: 6px;
+          font-weight: 600;
+        }
+        span{
+          padding-right: 10px;
+          font-family: SourceHanSansCN-Regular;
+          font-size: 12px;
+          color: #666;
+          margin-top: 0;
+        }
+      }
+      .card-table__title{
+        margin: 10px;
+        padding: 10px 0;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+      }
+      .card-table__body{
+        margin: 10px;
+        padding: 10px 0;
+      }
+    }
+    .card-news{
+      .el-card__body{
+        padding: 15px 0 0 20px;
+        background: #fff;
+        box-sizing: border-box;
+      }
+    }
+    .text {
+      font-size: 14px;
+    }
+    .item {
+      padding: 18px 0;
+    }
+  }
+  .content-list:first-child{
+    margin-right: 20px;
+  }
+  .ranking_title{
+    margin: 24px 0;
+    box-sizing: border-box;
+    h2{
+      font-family: SourceHanSansCN-Regular;
+      font-size: 24px;
+      display: inline-block;
+      color: #333;
+      letter-spacing: 1px;
+    }
+    span{
+      margin-top: 10px;
+      font-family: SourceHanSansCN-Regular;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      float: right;
+    }
+  }
 </style>
