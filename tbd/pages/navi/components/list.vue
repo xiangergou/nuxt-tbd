@@ -37,29 +37,40 @@
         <span style="float:right">榜单说明</span>
       </div>
       <el-row justify="space-between" class="card-table__title">
-        <el-col :span="1">序号</el-col>
-        <el-col :span="4" style="text-align:center">达人信息</el-col>
-        <el-col :span="4">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2">达人信息</el-col>
-        <el-col :span="2" style="text-align:right">粉丝数</el-col>
+        <el-col :span="2" v-for="(item, i) in descContent" :key="i">
+          {{item.key}}
+        </el-col>
+       
       </el-row>
-      <el-row justify="space-between" class="card-table__body">
-        <el-col :span="2">1</el-col>
-        <el-col :span="1">昵称</el-col>
-        <el-col :span="1" >昵称</el-col>
-        <el-col :span="2" >昵称</el-col>
-        <el-col :span="15" style="text-align:right">淘指数</el-col>
-      </el-row> 
-      <el-row justify="space-between" class="card-table__body">
-        <el-col :span="3">1</el-col>
-        <el-col :span="3">昵称</el-col>
-        <el-col :span="3" >昵称</el-col>
-        <el-col :span="15" style="text-align:right">淘指数</el-col>
+      <el-row justify="space-between" class="card-table__body" v-for="(item, i) in tableData" :key="i">
+        <el-col :span="2">{{item['序号']}}</el-col>
+        <el-col :span="2" class="avater">
+          <img :src="`http://${item.darenUrl && item.darenUrl.slice(2)}`" alt="">
+        </el-col>
+        <el-col :span="2">
+          {{item['nick']}}
+          <p>{{item['area']}}</p>
+        </el-col>
+        <el-col :span="2" style="text:center">
+          <el-popover
+            placement="top"
+            width="100"
+            trigger="hover">
+            <img :src="item['wirelessQr']" alt="" style="width:80px;height:80px;">
+            <p>用手机淘宝扫码查看</p>
+            <span slot="reference" style="width:18px;height:18px;">
+              <img :src="item['wirelessQr']" alt="" style="width:100%;margin:0 auto;display:block">
+            </span>
+          </el-popover>
+        </el-col>
+        <el-col :span="2" >{{item['粉丝数']}}</el-col>
+        <el-col :span="2" >{{item['服务评分']}}</el-col>
+        <el-col :span="2">{{item['签约机构']}}</el-col>
+        <el-col :span="2">{{item['粉丝号召指数']}}</el-col>
+        <el-col :span="2">{{item['内容消费指数']}}</el-col>
+        <el-col :span="2">{{item['商业转化指数']}}</el-col>
+        <el-col :span="2">{{item['淘指数']}}</el-col>
+        <el-col :span="2">{{item['合作']}}</el-col>
       </el-row> 
     </el-card>
   </div>
@@ -72,10 +83,16 @@
     props: {
       labelName: {
         type: String
-      }
-    },
-    props: {
+      },
+      descContent: {
+        type: Array,
+        default: () => []
+      },
       timeList: {
+        type: Array,
+        default: () => []
+      },
+      tableData: {
         type: Array,
         default: () => []
       }
@@ -138,6 +155,13 @@
   .card-table__body{
     margin: 10px;
     padding: 10px 0;
+  }
+   .avater{
+     img{
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+     }
   }
 }
 </style>

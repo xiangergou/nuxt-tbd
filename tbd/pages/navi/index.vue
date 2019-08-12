@@ -9,23 +9,22 @@
         background-color="#FB5E42"
         text-color="#fff"
         active-text-color="#fff">
-        <el-menu-item index="1">达人榜</el-menu-item>
-        <el-menu-item index="2">商家榜</el-menu-item>
-        <el-menu-item index="3">机构榜</el-menu-item>
-        <el-menu-item index="4">特色榜</el-menu-item>
-        <el-menu-item index="5">天猫金婴榜</el-menu-item>
-        <el-menu-item index="6">天猫金妆榜</el-menu-item>
+        <el-menu-item :index="''+ (i + 1)" v-for="(item, i) in navList.slice(1)" :key="i">{{item.oneName}}</el-menu-item>
+        <el-menu-item index="7" style="float:right" >{{navList && navList[0].oneName}}</el-menu-item>
       </el-menu>
     </header>
     <component
       v-bind:is="currentTabComponent"
       :labelName="activeIndex"
+      :descContent="descContent"
+      :tableData="tableData"
       :timeList="timeList"></component>
   </section>
 </template>
 <script>
   import list from './components/list.vue'
   import { listApi } from '~/api/latestlist.js';
+  import { homeApi } from '~/api/home.js'
 
   export default {
     components: {
@@ -34,14 +33,23 @@
     data() {
       return {
         activeIndex: '1',
-        currentTabComponent: list
+        currentTabComponent: list,
+        navList: '',
+        tableData: []
       };
+    },
+    computed: {
+      descContent() {
+        return this.navList[this.activeIndex * 1] && this.navList[this.activeIndex * 1].descContent
+      }
     },
     async asyncData() {
       // console.log(await listApi.getAreas(), 'await listApi.getBanners()')
       // const bannerList = await listApi.getBanners();
       const time = await listApi.getPublishdetail();
+      // const tableData = await homeApi.getListdareninfo({darens: hostDarens.toString()});
       return {
+        // tableData: tableData.data.data,
         timeList: time.data.data
         // banners: bannerList.data.data
       };
@@ -60,14 +68,46 @@
         //   console.log(res.data.data, 'res')
         // })
       },
-      init () {
+      async init () {
         // listApi.getAreas().then(res => console.log(res, 'getAreas'))
-        listApi.getDirs().then(res => console.log(res.data, 'getDirs'))
-        listApi.getBydir().then(res => console.log(res.data, 'getBydir'))
-        listApi.getTopdirs().then(res => console.log(res.data, 'getTopdirs'))
-        listApi.getPublishdetail().then(res => console.log(res.data, 'getPublishdetail'))
-        listApi.getPageQuery().then(res => console.log(res.data, 'getPageQuery'))
-        listApi.getPageCount().then(res => console.log(res.data, 'getPageCount'))
+        
+        const res = await listApi.getBydir();
+        let arr = [];
+        const hash = {};
+        arr = res.data.data.reduce((pre, next) => {
+          hash[next.one] ? '' : hash[next.one] = true && pre.push(next);
+          return pre
+        }, [])
+        let idsArr = arr.map(item => item.one)
+
+        const getDirs = await listApi.getDirs();
+        const getDirsArr = getDirs.data.data.filter(item => {
+          return item.level === 1 && idsArr.includes(item.dir)
+        })
+        // console.log(this.navList, 'getDirs')
+        let newArr = [];
+        arr.forEach((item, i) => {
+          getDirsArr.forEach((k, v) => {
+            if (item.oneName === k.name) {
+              newArr.push(item)
+            }
+          })
+        });
+        this.navList = newArr;
+        console.log(this.navList[1], 'this.navList')
+
+        const list = await listApi.getPageQuery({id: this.navList[1].id, count: this.navList[1].latestPublishCount})
+        console.log(list.data.data.contents, 'list')
+        this.tableData = list.data.data.contents;
+
+        // 获取达人信息
+        let darens = this.tableData.map(item => item['达人信息']).toString();
+        const dareninfo = await listApi.getListdareninfo({darens});
+
+        this.tableData = this.tableData.map(item => {
+          return item = {...item, ...dareninfo.data.data[item['达人信息']]}
+        })
+        console.log(this.tableData[0], 'this.tableData')
       }
     },
     mounted () {

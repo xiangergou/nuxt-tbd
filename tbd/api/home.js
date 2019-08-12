@@ -21,7 +21,7 @@ export const homeApi = {
   },
 
   // 获取指定分类文章 目前是按照时间排序
-  getCategoryArticles(params = { number: 9 }) {
+  getCategoryArticles(params = {}) {
     return fetch({
       url: '/api/mainpage/categoryArticles',
       method: 'get',
@@ -49,7 +49,7 @@ export const homeApi = {
   },
 
   // 获取首页展示的榜单
-  getCategoryArticles(params = { number: 3 }) {
+  getRanklists(params = { number: 9 }) {
     return fetch({
       url: '/api/mainpage/ranklists',
       method: 'get',
@@ -86,4 +86,23 @@ export const homeApi = {
     })
   },
 
+  // 获取榜单指定期限的内容
+  getListPageQuery(params) {
+    // params = { page: 1, pageSize: 10, ...params }
+    params = { page: 1, pageSize: 10, count: 22, id: 2 }
+    return fetch({
+      url: '/api/list/pageQuery',
+      method: 'get',
+      params
+    })
+  },
+
+  // 批量获取达人的信息
+  getListdareninfo(params) {
+    return fetch({
+      url: '/api/daren/listdareninfo',
+      method: 'get',
+      params
+    })
+  }
 }

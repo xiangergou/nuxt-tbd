@@ -46,7 +46,8 @@ export const listApi = {
   },
 
   // 获取榜单指定期限的内容
-  getPageQuery(params = {count: 10, id: 100, page: 1, pageSize: 10}) {
+  getPageQuery(params) {
+    params = { page: 1, pageSize: 10, ...params }
     return fetch({
       url: '/api/list/pageQuery',
       method: 'get',

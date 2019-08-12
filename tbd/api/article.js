@@ -29,7 +29,6 @@ export const artApi = {
 
   // 搜索指定标题的资讯
   getPageQuery(params) {
-    console.log(params, 'params')
     params = { categoryId: 1, page: 1, pageSize: 10, ...params}
     return fetch({
       url: '/api/article/pageQuery',

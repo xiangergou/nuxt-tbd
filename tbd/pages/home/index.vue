@@ -8,11 +8,16 @@
     </banner>
     <!-- 最新排行 -->
     <ranking
+      :tableData="tableData"
+      :list="list"
       :ranklists="ranklists"
       :activities="activities">
     </ranking>
     <!-- 内容电商 -->
-    <contents>
+    <contents
+      :leftData="leftData"
+      :rightData="rightData"
+    >
     </contents>
     <!-- 广告 -->
     <section class="home__article-img" v-for="(item, i) in adv" :key="i">
@@ -37,6 +42,8 @@
   </template>
 <script>
 import { homeApi } from '~/api/home.js';
+import { listApi } from '~/api/latestlist.js';
+
 import { sliceArray } from '~/utils/tool.js';
 import banner from './components/banner.vue'
 import ranking from './components/ranking.vue'
@@ -62,16 +69,47 @@ export default {
     const pageQuerylist = sliceArray(pageList.data.data.items, 8);
     const linkList = await homeApi.getListlinks();
     const advList = await homeApi.getListMainAdv();
-    const articleList = await homeApi.getCategoryArticles();
+
+    // 最新排行
+    const articleList = await homeApi.getRanklists();
+    const articleData = articleList.data.data;
+    const hostObj = await listApi.getPageQuery({
+      count: articleData[0].latestPublishCount,
+      id: articleData[0].listId,
+    });
+    const videoObj = await listApi.getPageQuery({
+      count: articleData[1].latestPublishCount,
+      id: articleData[1].listId,
+    });
+    articleData[0] = {...articleData[0], ...hostObj.data.data}
+    articleData[1] = {...articleData[1], ...videoObj.data.data}
+    const hostDarens = hostObj.data.data.contents.map(item => item['达人信息']).toString();
+    const videoDarens = videoObj.data.data.contents.map(item => item['达人信息'])
+    const hostTableData = await homeApi.getListdareninfo({darens: hostDarens.toString()});
+    const videoTableData = await homeApi.getListdareninfo({darens: videoDarens.toString()})
+
     const taoHotList = await homeApi.getTaoHot();
     const taoHot = sliceArray(taoHotList.data.data, 3);
     const rankList = await homeApi.getRanklistsummation();
     const bannerList = await homeApi.getBanners();
+
+    // 榜单解读 
+    const activities = await homeApi.getCategoryArticles({categoryId: 2, number: 9})
+
+    // 内容电商
+    const leftData = await homeApi.getCategoryArticles({categoryId: 3, number: 6})
+    const rightData = await homeApi.getCategoryArticles({categoryId: 1, number: 4})
+    // const 
     return {
+      leftData: leftData.data.data,
+      rightData: rightData.data.data,
+      activities: activities.data.data,
+      tableData: {...hostTableData.data.data, ...videoTableData.data.data},
+      list: [hostObj.data.data, videoObj.data.data],
       pageQuerylist,
       listlinks: linkList.data.data,
       adv: advList.data.data,
-      ranklists: articleList.data.data,
+      ranklists: articleData,
       taoHot,
       ranklistCount: rankList.data.data,
       banners: bannerList.data.data
@@ -87,17 +125,17 @@ export default {
       pageQuerylist: [], // 爆文列表
       active: false,
       banners: [],
-      articles: [],
-      activities: [{
-        content: '活动按期开始',
-        timestamp: '2018-04-15'
-      }, {
-        content: '通过审核',
-        timestamp: '2018-04-13'
-      }, {
-        content: '创建成功',
-        timestamp: '2018-04-11'
-      }]
+      // articles: [],
+      // activities: [{
+      //   content: '活动按期开始',
+      //   timestamp: '2018-04-15'
+      // }, {
+      //   content: '通过审核',
+      //   timestamp: '2018-04-13'
+      // }, {
+      //   content: '创建成功',
+      //   timestamp: '2018-04-11'
+      // }]
     }
   },
   methods: {
@@ -105,14 +143,10 @@ export default {
       homeApi.getListAssistant().then(res => {
         console.log(res.data.data, 'ListAssistant')
       })
-    },
-    init () {
-      // this.getBanners()
-      Promise.all([this.getListAssistant()])
     }
   },
   async mounted () {
-    this.init()
+    // const arr = await listApi.getPageQuery();
   }
 }
 </script>
@@ -120,209 +154,7 @@ export default {
 <style lang="scss">
 .home_container{
   overflow: auto;
-  .home__article-content{
-    width: 1180px;
-    overflow: auto;
-    margin: 0px auto 10px;
-    padding: 0;
-    box-sizing: border-box;
-    background: #fafafa;
-    .article-content-left__section{
-      padding-left: 10px;
-      // padding-top: 10px;
-      height: 96px;
-      border-bottom: 1px solid #eee;
-      p{
-        font-family: MicrosoftYaHei;
-        font-size: 16px;
-        color: #333;
-        line-height: 20px;
-        text-overflow: ellipsis;
-        height: 20px;
-        width: 100%;
-        overflow: hidden;
-      }
-      span{
-        display: block;
-        margin-top: 9px;
-        font-family: MicrosoftYaHei;
-        height: 16px;
-        line-height: 16px;
-        font-size: 12px;
-        color: #999;
-        text-overflow: ellipsis;
-      }
-      .setion-body{
-        // border-bottom: 1px solid #ccc;
-        margin: 14px 0;
-      }
-      .section-tags{
-        height: 18px;
-        line-height: 18px;
-        margin-top: 13px;
-        font-family: MicrosoftYaHei;
-        font-size: 12px;
-        color: #656565;
-      }
-    }
-    .el-card__body{
-      box-sizing: border-box;
-    }
-    .content-article{
-      padding: 19px;
-      height: 80px;
-      box-sizing: border-box;
-      cursor: pointer;
-      h3{
-        font-family: MicrosoftYaHei;
-        font-size: 14px;
-        color: #333;
-        line-height: 20px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      span{
-        margin-top: 6px;
-        height: 16px;
-        line-height: 16px;
-        font-family: MicrosoftYaHei;
-        font-size: 12px;
-        color: #999;
-      }
-    }
-    .content-img{
-      position: relative;
-      // width: 320px;
-      height: 180px;
-      overflow: hidden;
-      img{
-        width: 100%;
-        height: 100%;
-      }
-      span{
-        display: block;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 30px;
-        line-height: 25px;
-        padding-left: 10px;
-        box-sizing: border-box;
-        font-family: MicrosoftYaHei;
-        font-size: 13px;
-        color: #fff;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        background: linear-gradient(transparent, 30%, rgba(0,0,0,0.5));
-      }
-    }
-  }
-  .home__article-img{
-    width: 1180px;
-    margin: 30px auto 0;
-    padding: 0;
-    img{
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .home__article-list{
-    width: 1180px;
-    overflow: auto;
-    margin: 0 auto;
-    .el-carousel {
-      .el-carousel__container{
-        height: 430px !important;
-      }
-    }
-    .article-list-card{
-      h3{
-        height: 48px;
-        font-family: MicrosoftYaHei;
-        font-size: 16px;
-        color: #333;
-        line-height: 24px;
-        margin-top: 17px;
-        overflow: hidden;
-      }
-      p{
-        height: 36px;
-        font-family: MicrosoftYaHei;
-        font-size: 12px;
-        color: #999;
-        line-height: 18px;
-        margin-top: 16px;
-        overflow: hidden;
-      }
-      .list-card__row{
-        font-family: MicrosoftYaHei;
-        font-size: 12px;
-        color: #656565;
-        line-height: 18px;
-        margin-top: 23px;
-        height: 18px;
-      }
-    }
-  }
-  .home__article-link{
-    width: 100%;
-    background: #949494;
-    .content{
-      width: 1180px;
-      padding: 26px 0;
-      height: 162px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      h3{
-        color: #FFF;
-        font-size: 18px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-      }
-      a{
-        text-decoration: none;
-        color: #fff;
-      }
-      ul{
-        list-style: none;
-        li{
-          font-size: 12px;
-          text-decoration:none;
-          color: #fff;
-          display: inline-block;
-          margin-right: 50px;
-          box-sizing: border-box;
-        }
-      }
-      .content-left{
-        float: left;
-      }
-      .content-right{
-        float: right;
-        width: 180px;
-        ol{
-          display: flex;
-          li{
-            flex: 1;
-            text-align: center;
-          }
-        }
-        img{
-          width: 45px;
-          height: 45px;
-        }
-        span{
-          display: block;
-          margin-top: 10px;
-          font-size: 12px;
-          color: #fff;
-        }
-      }
-    }
-  }
+  
   footer{
     height: 68px;
     width: 100%;

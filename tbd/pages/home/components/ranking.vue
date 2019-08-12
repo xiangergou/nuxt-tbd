@@ -9,29 +9,33 @@
               </span>
             </div>
            <el-row type="flex" class="row-bg" justify="space-between">
-              <el-col :span="12" v-for="(item, i) in ranklists" :key="i" class="content-list">
+              <el-col :span="12" v-for="(item, i) in allData" :key="i" class="content-list">
                 <el-card class="box-card">
                   <div class="ranking_title card-title">
                     <strong>{{item.name}} ></strong>
-                    <span>2019.4.15-2019.4.21</span>
+                    <span>{{timeformat(item.startTime)}} - {{timeformat(item.endTime)}}</span>
                   </div>
                   <el-row justify="space-between" class="card-table__title">
-                    <el-col :span="6">排名</el-col>
-                    <el-col :span="8">{{item.fields[0]}}</el-col>
-                    <el-col :span="10" style="text-align:right">{{item.fields[1]}}</el-col>
+                    <el-col :span="7">排名</el-col>
+                    <el-col :span="9">{{item.fields[0]}}</el-col>
+                    <el-col :span="8" style="text-align:right">{{item.fields[1]}}</el-col>
                   </el-row>
-                  <el-row justify="space-between" class="card-table__body">
-                    <el-col :span="3">1</el-col>
-                    <el-col :span="3">昵称</el-col>
-                    <el-col :span="3" >昵称</el-col>
-                    <el-col :span="15" style="text-align:right">淘指数</el-col>
-                  </el-row> 
-                  <el-row justify="space-between" class="card-table__body">
-                    <el-col :span="3">1</el-col>
-                    <el-col :span="3">昵称</el-col>
-                    <el-col :span="3" >昵称</el-col>
-                    <el-col :span="15" style="text-align:right">淘指数</el-col>
-                  </el-row> 
+                  
+                  <a :href="k.homePage"
+                    style="color: #444444; cursor: pointer;"
+                    v-for="(k, v) in item.contents.slice(0, 5)" 
+                    :key="v">
+                    <el-row justify="space-between" class="card-table__body"    >
+                      <el-col :span="3">{{v+1}}</el-col>
+                      <el-col :span="3" class="avater">
+                        <img :src="`http://${k.darenUrl.slice(2)}`" alt="">
+                      </el-col>
+                      <el-col :span="9" class="nick">{{k.nick}}</el-col>
+                      <el-col :span="9" style="text-align:right">
+                        {{k['淘指数']}}
+                      </el-col>
+                    </el-row> 
+                  </a>
                 </el-card>
              </el-col>
            </el-row>
@@ -46,8 +50,9 @@
               <el-timeline-item
                 v-for="(activity, index) in activities"
                 :key="index"
-                :timestamp="activity.timestamp">
-                {{activity.content}}
+                color="#ff502e"
+                :timestamp="`${activity.author} ${timeformat(activity.publishTime)}`">
+                <p class="text">{{activity.title}}</p>
               </el-timeline-item>
             </el-timeline>
           </el-card>
@@ -57,6 +62,8 @@
 </template>
 
 <script>
+  import { timestampToTime, deepClone } from '~/utils/tool'
+
   export default {
     name: 'ranking',
     serverCacheKey () {
@@ -65,11 +72,27 @@
     },
     data() {
       return {
-        reverse: true
+        reverse: true,
+        allData: []
+      }
+    },
+    methods: {
+      timeformat(time) {
+        return timestampToTime(time)
+      },
+      dataFormat() {
+        const data = deepClone(this.ranklists);
+        data.forEach((item, i) => {
+          item.contents = item.contents.map((k, v) => {
+            const key = k['达人信息'];
+            return k = {...k, ...this.tableData[key]}
+          })
+        });
+        this.allData = data;
       }
     },
     mounted() {
-      console.log(this.ranklists, 'ranklists')
+      this.dataFormat()
     },
     props: {
       ranklists: {
@@ -79,6 +102,14 @@
       activities:{
         type: Array,
         default: () => []
+      },
+      list:{
+        type: Array,
+        default: () => []
+      },
+      tableData: {
+        type: Object,
+        default: () => {}
       }
     }
   }
@@ -96,10 +127,15 @@
       width: 100%;
       box-sizing: border-box;
       height: 476px;
-      overflow: auto;
+      overflow: hidden;
+      .el-card__body{
+        padding: 0 20px;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
       .card-title{
-        height: 40px;
-        line-height: 40px;
+        height: 60px;
+        line-height: 60px;
         margin: 0;
         width: 100%;
         strong{
@@ -117,17 +153,37 @@
         }
       }
       .card-table__title{
-        margin: 10px;
-        padding: 10px 0;
-        text-align: left;
-        border-bottom: 1px solid #ccc;
+        height: 45px;
+        align-items: center;
+        justify-content: flex-start;
+        display: flex;
+        font-size: 14px;
+        background: #fff;
+        border-bottom: 1px solid #eee;
       }
       .card-table__body{
-        margin: 10px;
-        padding: 10px 0;
+        height: 74.5px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .avater{
+          img{
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+          }
+        }
+        .nick{
+          font-family: MicrosoftYaHei;
+          font-size: 14px;
+          color: #333;
+          margin-left: 12px;
+        }
       }
     }
     .card-news{
+      overflow: auto !important;
       .el-card__body{
         padding: 15px 0 0 20px;
         background: #fff;
@@ -136,6 +192,13 @@
     }
     .text {
       font-size: 14px;
+      width: 257px;
+      min-height: 21px;
+      max-height: 42px;
+      font-family: MicrosoftYaHei;
+      font-size: 14px;
+      color: #333;
+      line-height: 21px;
     }
     .item {
       padding: 18px 0;

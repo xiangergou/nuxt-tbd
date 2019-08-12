@@ -33,7 +33,9 @@
   </article>
   <el-carousel :interval="5000" arrow="hover">
     <el-carousel-item v-for="(item, i) in banners" :key="i">
-      <a :href="item.link"><img :src="item.icon" alt=""></a>
+      <a :href="item.link">
+        <img :src="item.icon" alt="" style="width:100%;height: 100%">
+      </a>
     </el-carousel-item> 
   </el-carousel>
 </section>
