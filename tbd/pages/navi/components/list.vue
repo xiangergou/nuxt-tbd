@@ -23,7 +23,7 @@
         </ul>
       </div>
     </el-card>
-    <el-card class="box-card">
+    <el-card class="box-card card-table">
       <div>
         <el-select v-model="value" placeholder="请选择"
           size="small">
@@ -44,13 +44,14 @@
       </el-row>
       <el-row justify="space-between" class="card-table__body" v-for="(item, i) in tableData" :key="i">
         <el-col :span="2">{{item['序号']}}</el-col>
-        <el-col :span="2" class="avater">
-          <img :src="`http://${item.darenUrl && item.darenUrl.slice(2)}`" alt="">
+        <el-col :span="4" class="avater">
+          <img :src="formatImgurl(item.darenUrl)" alt="">
+          <div>
+             <span>{{item['nick']}}</span>
+              <p>{{item['area']}}</p>
+          </div>
         </el-col>
-        <el-col :span="2">
-          {{item['nick']}}
-          <p>{{item['area']}}</p>
-        </el-col>
+
         <el-col :span="2" style="text:center">
           <el-popover
             placement="top"
@@ -70,7 +71,10 @@
         <el-col :span="2">{{item['内容消费指数']}}</el-col>
         <el-col :span="2">{{item['商业转化指数']}}</el-col>
         <el-col :span="2">{{item['淘指数']}}</el-col>
-        <el-col :span="2">{{item['合作']}}</el-col>
+        <el-col :span="2">
+          <a :href="`https://v.taobao.com/v/home?userId=${item['达人信息']}`">
+          >></a>
+        </el-col>
       </el-row> 
     </el-card>
   </div>
@@ -101,7 +105,9 @@
       return {
         options: [],
         activeName: 'second',
-        value: ''
+        value: '',
+        timer: null,
+        pageSize: 10
       }
     },
     methods: {
@@ -110,7 +116,33 @@
           item.key = `${timestampToTime(item.startTime)} - ${timestampToTime(item.endTime)}`
         })
         return timeList
+      },
+      formatImgurl(url) {
+        if (!url) return;
+        if (url.indexOf('http') > -1) {
+          return url
+        } else {
+          return `http://${url}`
+        }
       }
+      // handleScroll() {
+      //   this.timer && clearTimeout(this.timer)
+      //   this.timer = setTimeout(this.loadMoreData, 300)
+      // },
+      // loadMoreData() {
+      //   const $el = document.documentElement
+      //   const clienHeight = $el.clientHeight
+      //   const cardTable = document.querySelector('.card-table')
+      //   let height = 0;
+      //   if ($el.scrollTop >= 232) {
+      //     this.pageSize += 10
+      //     this.$emit('getData', this.pageSize)
+      //     height = cardTable.clientHeight
+      //   }
+      // }
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll)
     },
     watch: {
       labelName(newValue, oldValue) {
@@ -162,6 +194,7 @@
       height: 46px;
       border-radius: 50%;
      }
+     display: flex;
   }
 }
 </style>

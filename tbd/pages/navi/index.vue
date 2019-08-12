@@ -96,7 +96,7 @@
         this.navList = newArr;
         console.log(this.navList[1], 'this.navList')
 
-        const list = await listApi.getPageQuery({id: this.navList[1].id, count: this.navList[1].latestPublishCount})
+        const list = await listApi.getPageQuery({id: this.navList[1].id, count: this.navList[1].latestPublishCount,page: 1, pageSize: 100})
         console.log(list.data.data.contents, 'list')
         this.tableData = list.data.data.contents;
 
@@ -107,8 +107,18 @@
         this.tableData = this.tableData.map(item => {
           return item = {...item, ...dareninfo.data.data[item['达人信息']]}
         })
-        console.log(this.tableData[0], 'this.tableData')
-      }
+      },
+      // async getData(pageSize) {
+      //   const list = await listApi.getPageQuery({id: this.navList[1].id, count: this.navList[1].latestPublishCount,  pageSize: pageSize, page: 1})
+      //   this.tableData = list.data.data.contents;
+
+      //   let darens = this.tableData.map(item => item['达人信息']).toString();
+      //   const dareninfo = await listApi.getListdareninfo({darens});
+
+      //   this.tableData = this.tableData.map(item => {
+      //     return item = {...item, ...dareninfo.data.data[item['达人信息']]}
+      //   })
+      // }
     },
     mounted () {
       this.init();
